@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CompTIA A+ Master Guide — Core 1 & Core 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1e2d47;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --text-faint: #475569;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Syne', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0a0e1a 0%, #0d1b2a 50%, #0a0e1a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 64px;
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .logo span { color: var(--text-dim); }
+
+  .nav-tabs {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    flex: 1;
+    scrollbar-width: none;
+  }
+
+  .nav-tabs::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .nav-tab:hover { background: var(--surface2); color: var(--text); }
+  .nav-tab.active { background: var(--accent); color: #000; font-weight: 600; }
+
+  /* MAIN */
+  .main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+
+  /* SECTIONS */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 60px 0 40px;
+    position: relative;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: var(--sans);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    color: var(--text-dim);
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 32px;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* EXAM SELECTOR */
+  .exam-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 40px 0;
+  }
+
+  .exam-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exam-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .exam-card.core1::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+  .exam-card.core2::before { background: linear-gradient(90deg, var(--accent3), var(--warn)); }
+
+  .exam-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .exam-card.selected { border-color: var(--accent); background: var(--surface2); }
+
+  .exam-card h3 {
+    font-family: var(--sans);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .exam-card p { color: var(--text-dim); font-size: 14px; line-height: 1.6; }
+
+  .exam-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .core1-tag { background: rgba(0,212,255,0.1); color: var(--accent); }
+  .core2-tag { background: rgba(16,185,129,0.1); color: var(--accent3); }
+
+  /* STUDY GUIDE */
+  .guide-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .guide-sidebar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: sticky;
+    top: 88px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .guide-sidebar h3 {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-dim);
+    transition: all 0.2s;
+    margin-bottom: 2px;
+  }
+
+  .sidebar-item:hover { background: var(--surface2); color: var(--text); }
+  .sidebar-item.active { background: rgba(0,212,255,0.1); color: var(--accent); }
+
+  .sidebar-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--text-faint);
+    flex-shrink: 0;
+  }
+
+  .sidebar-item.active .sidebar-dot { background: var(--accent); }
+
+  .guide-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* CONTENT CARDS */
+  .content-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+  }
+
+  .content-card h2 {
+    font-family: var(--sans);
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .icon-blue { background: rgba(0,212,255,0.1); }
+  .icon-purple { background: rgba(124,58,237,0.1); }
+  .icon-green { background: rgba(16,185,129,0.1); }
+  .icon-yellow { background: rgba(245,158,11,0.1); }
+
+  .content-card h3 {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 24px 0 12px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+
+  .content-card p {
+    color: var(--text-dim);
+    line-height: 1.8;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+
+  /* MUST KNOW */
+  .must-know {
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.3);
+    border-left: 4px solid var(--warn);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+
+  .must-know-header {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--warn);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .must-know p { color: var(--text); font-size: 14px; margin-bottom: 6px; }
+  .must-know p:last-child { margin-bottom: 0; }
+
+  /* KEY TERM */
+  .term {
+    display: inline-block;
+    background: rgba(124,58,237,0.15);
+    border: 1px solid rgba(124,58,237,0.3);
+    color: #a78bfa;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 12px;
+    margin: 2px;
+  }
+
+  /* TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+
+  .data-table th {
+    background: var(--surface2);
+    color: var(--text-dim);
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  .data-table tr:hover td { background: var(--surface2); color: var(--text); }
+
+  .data-table td:first-child {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  /* MNEMONIC */
+  .mnemonic {
+    background: rgba(16,185,129,0.08);
+    border: 1px solid rgba(16,185,129,0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 16px 0;
+  }
+
+  .mnemonic-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent3);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .mnemonic-word {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent3);
+    margin-bottom: 8px;
+  }
+
+  .mnemonic p { font-size: 14px; color: var(--text-dim); }
+  .mnemonic strong { color: var(--text); }
+
+  /* PRACTICE EXAM */
+  .exam-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .exam-version-btns {
+    display: flex;
+    gap: 8px;
+  }
+
+  .version-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .version-btn:hover { border-color: var(--accent); color: var(--text); }
+  .version-btn.active { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
+
+  .exam-header-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .exam-progress {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .exam-progress-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .progress-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 3px;
+    transition: width 0.3s;
+  }
+
+  .exam-score {
+    font-family: var(--mono);
+    font-size: 28px;
+    color: var(--accent);
+    text-align: right;
+  }
+
+  .exam-score span { font-size: 14px; color: var(--text-dim); }
+
+  /* QUESTION */
+  .question-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .q-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  .q-domain {
+    font-size: 11px;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .q-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .q-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .q-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    color: var(--text-dim);
+    background: var(--bg);
+  }
+
+  .q-option:hover { border-color: var(--accent); color: var(--text); background: rgba(0,212,255,0.03); }
+
+  .q-option.selected { border-color: var(--accent); background: rgba(0,212,255,0.08); color: var(--text); }
+  .q-option.correct { border-color: var(--accent3); background: rgba(16,185,129,0.1); color: #6ee7b7; }
+  .q-option.incorrect { border-color: var(--danger); background: rgba(239,68,68,0.08); color: #fca5a5; }
+
+  .opt-letter {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-faint);
+    flex-shrink: 0;
+    width: 18px;
+  }
+
+  .q-option.selected .opt-letter { color: var(--accent); }
+  .q-option.correct .opt-letter { color: var(--accent3); }
+  .q-option.incorrect .opt-letter { color: var(--danger); }
+
+  .q-explanation {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba(0,212,255,0.04);
+    border: 1px solid rgba(0,212,255,0.15);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    display: none;
+  }
+
+  .q-explanation.visible { display: block; }
+  .q-explanation strong { color: var(--accent); }
+
+  .q-submit {
+    background: var(--accent);
+    border: none;
+    color: #000;
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: all 0.2s;
+    display: none;
+  }
+
+  .q-submit.visible { display: block; }
+  .q-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,212,255,0.3); }
+
+  /* RESULTS */
+  .results-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .results-score {
+    font-family: var(--mono);
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .results-score.pass { color: var(--accent3); }
+  .results-score.fail { color: var(--danger); }
+
+  .results-label {
+    font-family: var(--sans);
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .results-sub { color: var(--text-dim); font-size: 15px; }
+
+  .results-breakdown {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 32px 0;
+    text-align: left;
+  }
+
+  .breakdown-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .breakdown-label { font-size: 12px; color: var(--text-dim); margin-bottom: 8px; }
+  .breakdown-val { font-family: var(--mono); font-size: 28px; font-weight: 700; color: var(--text); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-primary { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+  .btn-primary:hover { color: #000; box-shadow: 0 4px 16px rgba(0,212,255,0.3); }
+
+  /* MEMORY AIDS PAGE */
+  .memory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .memory-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+  }
+
+  .memory-card h3 {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+
+  .mnem-item {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mnem-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .mnem-acronym {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--accent3);
+    margin-bottom: 4px;
+  }
+
+  .mnem-expand {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .mnem-expand b { color: var(--accent3); }
+
+  /* CHEAT SHEET */
+  .cheat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .cheat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .cheat-card h4 {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cheat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .cheat-key { color: var(--text-dim); }
+  .cheat-val { font-family: var(--mono); font-size: 12px; color: var(--accent3); font-weight: 700; }
+
+  /* EXAM COMPLETE */
+  .restart-btn {
+    background: var(--accent2);
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 8px;
+    transition: all 0.2s;
+  }
+
+  .restart-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(124,58,237,0.3); }
+
+  /* DOMAIN TAGS */
+  .domain-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .dom-mobile { background: rgba(0,212,255,0.1); color: var(--accent); }
+  .dom-network { background: rgba(124,58,237,0.1); color: #a78bfa; }
+  .dom-hardware { background: rgba(16,185,129,0.1); color: var(--accent3); }
+  .dom-virtualization { background: rgba(245,158,11,0.1); color: var(--warn); }
+  .dom-security { background: rgba(239,68,68,0.1); color: #f87171; }
+  .dom-software { background: rgba(0,212,255,0.1); color: var(--accent); }
+  .dom-troubleshoot { background: rgba(16,185,129,0.1); color: var(--accent3); }
+  .dom-operational { background: rgba(245,158,11,0.1); color: var(--warn); }
+
+  /* LISTS */
+  .content-card ul, .content-card ol {
+    padding-left: 20px;
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.9;
+  }
+
+  .content-card li { margin-bottom: 4px; }
+  .content-card li strong { color: var(--text); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .guide-grid { grid-template-columns: 1fr; }
+    .guide-sidebar { position: static; max-height: none; }
+    .exam-selector { grid-template-columns: 1fr; }
+    .results-breakdown { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 32px; }
+    .main { padding: 20px 16px; }
+    .content-card { padding: 20px; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section.active { animation: fadeIn 0.3s ease; }
+
+  .highlight { color: var(--accent); font-weight: 600; }
+  .highlight-green { color: var(--accent3); font-weight: 600; }
+  .highlight-warn { color: var(--warn); font-weight: 600; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--accent3);
+  }
+
+  .tip-box {
+    background: rgba(124,58,237,0.08);
+    border: 1px solid rgba(124,58,237,0.2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .tip-box b { color: #a78bfa; }
+
+  .exam-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .finish-btn {
+    background: linear-gradient(135deg, var(--accent3), var(--accent));
+    border: none;
+    color: #000;
+    font-family: var(--body);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .finish-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(16,185,129,0.3); }
+
+  .exam-type-selector {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .exam-type-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .exam-type-btn:hover { border-color: var(--accent); color: var(--text); }
+  .exam-type-btn.active { background: var(--surface2); border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">A+<span>/</span>MASTER</div>
+    <nav class="nav-tabs">
+      <button class="nav-tab active" onclick="showSection('home')">🏠 Home</button>
+      <button class="nav-tab" onclick="showSection('guide-core1')">📘 Core 1 Guide</button>
+      <button class="nav-tab" onclick="showSection('guide-core2')">📗 Core 2 Guide</button>
+      <button class="nav-tab" onclick="showSection('memory')">🧠 Memory Aids</button>
+      <button class="nav-tab" onclick="showSection('cheatsheet')">📋 Cheat Sheet</button>
+      <button class="nav-tab" onclick="showSection('exam')">🎯 Practice Exams</button>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- HOME -->
+<section id="home" class="section active">
+  <div class="hero">
+    <div class="hero-badge">COMPTIA A+ COMPLETE PREP</div>
+    <h1>Pass Both Exams.<br>First Try.</h1>
+    <p>The most comprehensive beginner guide to CompTIA A+ 220-1101 & 220-1102 — study guides, memory aids, and 540 practice questions.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">2</span><span class="stat-label">Exam Guides</span></div>
+      <div class="stat"><span class="stat-num">540</span><span class="stat-label">Practice Questions</span></div>
+      <div class="stat"><span class="stat-num">6</span><span class="stat-label">Full Exam Sets</span></div>
+      <div class="stat"><span class="stat-num">90</span><span class="stat-label">Q Per Exam</span></div>
+    </div>
+  </div>
+
+  <div class="exam-selector">
+    <div class="exam-card core1" onclick="showSection('guide-core1')">
+      <div class="exam-tag core1-tag">220-1101</div>
+      <h3>Core 1 — Hardware & Networking</h3>
+      <p>Mobile devices, networking, hardware, virtualization, and cloud computing. 90 questions, 90 minutes, passing score 675/900.</p>
+    </div>
+    <div class="exam-card core2" onclick="showSection('guide-core2')">
+      <div class="exam-tag core2-tag">220-1102</div>
+      <h3>Core 2 — OS, Security & Support</h3>
+      <p>Operating systems, security, software troubleshooting, and operational procedures. 90 questions, 90 minutes, passing score 700/900.</p>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h2><div class="section-icon icon-blue">🗺️</div> How to Use This Guide</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:16px;">
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;">
+        <div style="font-family:var(--mono);font-size:24px;color:var(--accent);margin-bottom:8px;">01</div>
+        <div style="font-weight:600;margin-bottom:6px;">Read the Study Guide</div>
+        <p style="font-size:13px;color:var(--text-dim);">Start with Core 1 or Core 2 guide. Read every section and pay attention to ⚠️ MUST KNOW boxes.</p>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;">
+        <div style="font-family:var(--mono);font-size:24px;color:var(--accent);margin-bottom:8px;">02</div>
+        <div style="font-weight:600;margin-bottom:6px;">Study Memory Aids</div>
+        <p style="font-size:13px;color:var(--text-dim);">Use our mnemonics, acronyms, and cheat sheet to lock in the most important facts.</p>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;">
+        <div style="font-family:var(--mono);font-size:24px;color:var(--accent);margin-bottom:8px;">03</div>
+        <div style="font-weight:600;margin-bottom:6px;">Take Practice Exams</div>
+        <p style="font-size:13px;color:var(--text-dim);">Take all 3 versions per exam. Read every explanation. Re-take until you score 80%+ consistently.</p>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;">
+        <div style="font-family:var(--mono);font-size:24px;color:var(--accent);margin-bottom:8px;">04</div>
+        <div style="font-weight:600;margin-bottom:6px;">Schedule & Pass</div>
+        <p style="font-size:13px;color:var(--text-dim);">When consistently scoring 80%+ you're ready. Passing scores: Core 1 = 675, Core 2 = 700 (out of 900).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-card" style="margin-top:24px;">
+    <h2><div class="section-icon icon-yellow">⚡</div> Exam-Day Quick Tips</h2>
+    <div class="must-know">
+      <div class="must-know-header">⚠️ CRITICAL EXAM FACTS</div>
+      <p>• <strong>Core 1 passing score:</strong> 675 out of 900 (≈75%)</p>
+      <p>• <strong>Core 2 passing score:</strong> 700 out of 900 (≈78%)</p>
+      <p>• <strong>Question types:</strong> Multiple choice, drag-and-drop, performance-based (PBQ)</p>
+      <p>• <strong>PBQs:</strong> Appear first — attempt them, don't skip; they're worth more points</p>
+      <p>• <strong>Time management:</strong> ~1 minute per question. Flag and return if stuck.</p>
+      <p>• <strong>Eliminate wrong answers</strong> first, then choose from what remains</p>
+    </div>
+  </div>
+</section>
+
+<!-- CORE 1 GUIDE -->
+<section id="guide-core1" class="section">
+  <div style="margin-bottom:24px;">
+    <div class="hero-badge">220-1101 STUDY GUIDE</div>
+    <h1 style="font-family:var(--sans);font-size:36px;font-weight:800;margin:12px 0;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Core 1: Hardware & Networking</h1>
+    <p style="color:var(--text-dim);">Domain breakdown: Mobile Devices 15% • Networking 20% • Hardware 25% • Virtualization & Cloud 11% • Hardware Troubleshooting 29%</p>
+  </div>
+
+  <div class="guide-grid">
+    <div class="guide-sidebar">
+      <h3>Domains</h3>
+      <div class="sidebar-item active" onclick="scrollToAnchor('c1-mobile')"><span class="sidebar-dot"></span>1. Mobile Devices</div>
+      <div class="sidebar-item" onclick="scrollToAnchor('c1-networking')"><span class="sidebar-dot"></span>2. Networking</div>
+      <div class="sidebar-item" onclick="scrollToAnchor('c1-hardware')"><span class="sidebar-dot"></span>3. Hardware</div>
+      <div class="sidebar-item" onclick="scrollToAnchor('c1-virt')"><span class="sidebar-dot"></span>4. Virtualization & Cloud</div>
+      <div class="sidebar-item" onclick="scrollToAnchor('c1-troubleshoot')"><span class="sidebar-dot"></span>5. Hardware Troubleshoot</div>
+    </div>
+
+    <div class="guide-content">
+
+      <!-- MOBILE DEVICES -->
+      <div class="content-card" id="c1-mobile">
+        <h2><div class="section-icon icon-blue">📱</div> Domain 1: Mobile Devices (15%)</h2>
+        <p>This domain covers laptop hardware, display types, mobile device types, connection types, and accessories.</p>
+
+        <h3>Laptop Hardware Components</h3>
+        <p>Laptops use <strong>proprietary form factors</strong> — components are specific to each model. Key things to know:</p>
+        <ul>
+          <li><strong>RAM:</strong> Laptops use <span class="term">SO-DIMM</span> (Small Outline DIMM) — smaller than desktop DIMMs</li>
+          <li><strong>Storage:</strong> 2.5" SATA drives, M.2 NVMe SSDs, or eMMC (soldered flash)</li>
+          <li><strong>CPU:</strong> Mobile CPUs are soldered (<span class="term">BGA</span> — Ball Grid Array) — cannot be replaced</li>
+          <li><strong>Battery:</strong> Lithium-Ion or Lithium-Polymer; follow disposal regulations</li>
+        </ul>
+
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Display Types</div>
+          <p>• <strong>LCD (IPS):</strong> Best color accuracy, widest viewing angles — common in quality laptops</p>
+          <p>• <strong>LCD (TN):</strong> Fastest response time, poor viewing angles, cheapest</p>
+          <p>• <strong>LCD (VA):</strong> Best contrast ratios, middle ground between IPS and TN</p>
+          <p>• <strong>OLED:</strong> True blacks, most vibrant colors, risk of burn-in, used in premium phones/laptops</p>
+          <p>• <strong>Backlight:</strong> Modern LCDs use <span class="term">LED backlight</span>. Older used CCFL (fluorescent)</p>
+        </div>
+
+        <h3>Display Connections (Laptops)</h3>
+        <table class="data-table">
+          <tr><th>Port</th><th>Key Facts</th></tr>
+          <tr><td>HDMI</td><td>Carries audio + video. Most common. Multiple versions (1.4, 2.0, 2.1)</td></tr>
+          <tr><td>DisplayPort</td><td>Higher bandwidth than HDMI, daisy-chaining supported, common on workstations</td></tr>
+          <tr><td>Thunderbolt 3/4</td><td>USB-C connector, up to 40 Gbps, supports video + data + power</td></tr>
+          <tr><td>VGA</td><td>Analog, only video, D-Sub 15-pin connector — legacy, being phased out</td></tr>
+          <tr><td>DVI</td><td>Can be analog/digital/both. DVI-D (digital only), DVI-I (integrated analog+digital)</td></tr>
+        </table>
+
+        <h3>Mobile Device Types</h3>
+        <ul>
+          <li><strong>Smartphones:</strong> Android & iOS — closed vs. open ecosystem</li>
+          <li><strong>Tablets:</strong> iPad (iOS/iPadOS), Android tablets</li>
+          <li><strong>Wearables:</strong> Smartwatches, fitness trackers</li>
+          <li><strong>E-readers:</strong> E-Ink display — easy on eyes, long battery</li>
+          <li><strong>GPS:</strong> Uses satellites (no cellular needed for location)</li>
+        </ul>
+
+        <h3>Mobile Wireless Technologies</h3>
+        <table class="data-table">
+          <tr><th>Technology</th><th>Range / Speed</th><th>Use Case</th></tr>
+          <tr><td>Bluetooth</td><td>~10m / up to 3 Mbps</td><td>Headsets, keyboards, peripherals</td></tr>
+          <tr><td>Wi-Fi (802.11)</td><td>~50m+ / up to 9.6 Gbps (ax)</td><td>General wireless internet</td></tr>
+          <tr><td>NFC</td><td>~4cm / slow</td><td>Tap-to-pay, pairing</td></tr>
+          <tr><td>Infrared (IR)</td><td>Short / slow</td><td>TV remotes, old phone transfer</td></tr>
+          <tr><td>Cellular (4G/5G)</td><td>Miles / up to 20 Gbps</td><td>Mobile internet</td></tr>
+          <tr><td>GPS</td><td>Global / N/A</td><td>Navigation (receive-only)</td></tr>
+        </table>
+
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Mobile Connections</div>
+          <p>• <strong>Lightning:</strong> Apple proprietary (older iPhones/iPads)</p>
+          <p>• <strong>USB-C:</strong> New standard — reversible, supports data/video/power. iPhone 15+ uses USB-C</p>
+          <p>• <strong>Micro-USB:</strong> Older Android devices</p>
+          <p>• <strong>Hotspot/Tethering:</strong> Sharing cellular data with other devices via Wi-Fi, USB, or Bluetooth</p>
+        </div>
+
+        <h3>Mobile Device Synchronization</h3>
+        <ul>
+          <li><strong>iCloud:</strong> Apple's cloud sync service — contacts, photos, docs</li>
+          <li><strong>Google Workspace:</strong> Android/cross-platform sync</li>
+          <li><strong>Microsoft 365:</strong> Cross-platform, enterprise-focused</li>
+          <li><strong>ActiveSync:</strong> Microsoft protocol for syncing email/calendar/contacts to mobile</li>
+        </ul>
+      </div>
+
+      <!-- NETWORKING -->
+      <div class="content-card" id="c1-networking">
+        <h2><div class="section-icon icon-purple">🌐</div> Domain 2: Networking (20%)</h2>
+        <p>The highest-value conceptual domain. Know protocols, ports, cables, wireless, and network devices cold.</p>
+
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — TCP/IP Ports (memorize these!)</div>
+          <p>• <strong>20/21</strong> — FTP (20=data, 21=control) — File Transfer Protocol</p>
+          <p>• <strong>22</strong> — SSH — Secure Shell (encrypted remote access)</p>
+          <p>• <strong>23</strong> — Telnet — Unencrypted remote access (insecure!)</p>
+          <p>• <strong>25</strong> — SMTP — Sending email</p>
+          <p>• <strong>53</strong> — DNS — Domain Name System (resolves names to IPs)</p>
+          <p>• <strong>67/68</strong> — DHCP — 67=server, 68=client (assigns IP addresses)</p>
+          <p>• <strong>80</strong> — HTTP — Unencrypted web</p>
+          <p>• <strong>110</strong> — POP3 — Download email (deletes from server)</p>
+          <p>• <strong>143</strong> — IMAP — Email stays on server, sync multiple devices</p>
+          <p>• <strong>443</strong> — HTTPS — Encrypted web (TLS)</p>
+          <p>• <strong>3389</strong> — RDP — Remote Desktop Protocol (Windows)</p>
+          <p>• <strong>137-139</strong> — NetBIOS — Windows file sharing</p>
+          <p>• <strong>445</strong> — SMB — Server Message Block (Windows file/print sharing)</p>
+        </div>
+
+        <h3>Network Devices</h3>
+        <table class="data-table">
+          <tr><th>Device</th><th>OSI Layer</th><th>Function</th></tr>
+          <tr><td>Hub</td><td>Layer 1 (Physical)</td><td>Broadcasts all traffic to all ports — dumb, causes collisions</td></tr>
+          <tr><td>Switch</td><td>Layer 2 (Data Link)</td><td>Uses MAC addresses to direct traffic only to correct port</td></tr>
+          <tr><td>Router</td><td>Layer 3 (Network)</td><td>Routes between networks using IP addresses, connects to internet</td></tr>
+          <tr><td>Access Point</td><td>Layer 2</td><td>Extends wireless network; provides Wi-Fi connectivity</td></tr>
+          <tr><td>Firewall</td><td>Layer 3–7</td><td>Filters traffic by rules; blocks unwanted connections</td></tr>
+          <tr><td>Modem</td><td>Layer 1–2</td><td>Converts ISP signal (coax/DSL) to Ethernet</td></tr>
+          <tr><td>PoE Switch</td><td>Layer 2</td><td>Power over Ethernet — powers cameras, APs via cable</td></tr>
+        </table>
+
+        <h3>Ethernet Cabling Standards</h3>
+        <table class="data-table">
+          <tr><th>Category</th><th>Max Speed</th><th>Max Distance</th><th>Use</th></tr>
+          <tr><td>Cat 5</td><td>100 Mbps</td><td>100m</td><td>Legacy — avoid</td></tr>
+          <tr><td>Cat 5e</td><td>1 Gbps</td><td>100m</td><td>Common home/office</td></tr>
+          <tr><td>Cat 6</td><td>10 Gbps</td><td>55m (10G) / 100m (1G)</td><td>Modern standard</td></tr>
+          <tr><td>Cat 6a</td><td>10 Gbps</td><td>100m</td><td>Data centers</td></tr>
+          <tr><td>Cat 7</td><td>10 Gbps</td><td>100m</td><td>Shielded, specialized</td></tr>
+          <tr><td>Cat 8</td><td>25–40 Gbps</td><td>30m</td><td>Data center short runs</td></tr>
+        </table>
+
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Cable Types</div>
+          <p>• <strong>UTP</strong> — Unshielded Twisted Pair — most common, no shielding</p>
+          <p>• <strong>STP</strong> — Shielded Twisted Pair — better EMI protection, more expensive</p>
+          <p>• <strong>Coax</strong> — RG-6 for cable TV/internet; RG-59 for older systems</p>
+          <p>• <strong>Fiber Optic</strong> — Light signals, immune to EMI, very long runs</p>
+          <p>• <strong>Single-mode fiber (SMF)</strong> — Yellow jacket, long distance (km), laser</p>
+          <p>• <strong>Multi-mode fiber (MMF)</strong> — Orange/aqua jacket, shorter distance, LED</p>
+          <p>• <strong>Plenum-rated cable</strong> — Fire-resistant, required in air ducts/ceilings</p>
+        </div>
+
+        <h3>Wi-Fi Standards (802.11)</h3>
+        <table class="data-table">
+          <tr><th>Standard</th><th>Name</th><th>Max Speed</th><th>Frequency</th></tr>
+          <tr><td>802.11a</td><td>Wi-Fi 1</td><td>54 Mbps</td><td>5 GHz</td></tr>
+          <tr><td>802.11b</td><td>Wi-Fi 2</td><td>11 Mbps</td><td>2.4 GHz</td></tr>
+          <tr><td>802.11g</td><td>Wi-Fi 3</td><td>54 Mbps</td><td>2.4 GHz</td></tr>
+          <tr><td>802.11n</td><td>Wi-Fi 4</td><td>600 Mbps</td><td>2.4 & 5 GHz</td></tr>
+          <tr><td>802.11ac</td><td>Wi-Fi 5</td><td>3.5 Gbps</td><td>5 GHz</td></tr>
+          <tr><td>802.11ax</td><td>Wi-Fi 6/6E</td><td>9.6 Gbps</td><td>2.4, 5, 6 GHz</td></tr>
+        </table>
+
+        <div class="mnemonic">
+          <div class="mnemonic-label">🧠 MNEMONIC — 802.11 Order</div>
+          <div class="mnemonic-word">"A Boy Going Nowhere Across Airports"</div>
+          <p><b>A</b> (a) <b>B</b>oy (b) <b>G</b>oing (g) <b>N</b>owhere (n) <b>A</b>cross (ac) <b>A</b>irports (ax)</p>
+        </div>
+
+        <h3>IP Addressing Fundamentals</h3>
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — IPv4 Private Ranges</div>
+          <p>• <strong>10.0.0.0 – 10.255.255.255</strong> — Class A (/8) — Large organizations</p>
+          <p>• <strong>172.16.0.0 – 172.31.255.255</strong> — Class B (/12) — Medium organizations</p>
+          <p>• <strong>192.168.0.0 – 192.168.255.255</strong> — Class C (/16) — Home/small networks</p>
+          <p>• <strong>169.254.x.x</strong> — APIPA — Assigned when DHCP fails (link-local)</p>
+          <p>• <strong>127.0.0.1</strong> — Loopback (localhost) — always refers to this computer</p>
+        </div>
+
+        <p>Key subnetting: <code>/24</code> = 255.255.255.0 = 256 addresses (254 usable). <code>/16</code> = 255.255.0.0. <code>/8</code> = 255.0.0.0</p>
+
+        <h3>Network Types</h3>
+        <table class="data-table">
+          <tr><th>Type</th><th>Description</th></tr>
+          <tr><td>LAN</td><td>Local Area Network — same building/campus</td></tr>
+          <tr><td>WAN</td><td>Wide Area Network — connects LANs across distance (Internet = biggest WAN)</td></tr>
+          <tr><td>MAN</td><td>Metropolitan Area Network — city-wide</td></tr>
+          <tr><td>PAN</td><td>Personal Area Network — Bluetooth, very short range</td></tr>
+          <tr><td>WLAN</td><td>Wireless LAN</td></tr>
+          <tr><td>SAN</td><td>Storage Area Network — high-speed storage network</td></tr>
+          <tr><td>VLAN</td><td>Virtual LAN — logical segmentation on same physical switch</td></tr>
+        </table>
+
+        <h3>Network Tools & Commands</h3>
+        <table class="data-table">
+          <tr><th>Command</th><th>Purpose</th></tr>
+          <tr><td>ping</td><td>Tests connectivity to a host (uses ICMP)</td></tr>
+          <tr><td>ipconfig / ifconfig</td><td>Shows IP configuration (Windows / Linux/Mac)</td></tr>
+          <tr><td>tracert / traceroute</td><td>Shows path packets take to destination</td></tr>
+          <tr><td>nslookup</td><td>Queries DNS to resolve hostnames</td></tr>
+          <tr><td>netstat</td><td>Shows active network connections and ports</td></tr>
+          <tr><td>nmap</td><td>Port scanner — discovers hosts and services</td></tr>
+          <tr><td>arp</td><td>Shows/manages ARP table (IP-to-MAC mappings)</td></tr>
+        </table>
+      </div>
+
+      <!-- HARDWARE -->
+      <div class="content-card" id="c1-hardware">
+        <h2><div class="section-icon icon-green">🖥️</div> Domain 3: Hardware (25%)</h2>
+        <p>The biggest domain — know your components, connectors, storage, and peripherals inside and out.</p>
+
+        <h3>Motherboard Components</h3>
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Motherboard Facts</div>
+          <p>• <strong>Form factors:</strong> ATX (full size) > Micro-ATX > Mini-ITX (smallest)</p>
+          <p>• <strong>CPU socket types:</strong> Intel uses LGA (pins on motherboard), AMD uses AM4/AM5 (pins on CPU)</p>
+          <p>• <strong>BIOS/UEFI:</strong> Firmware that initializes hardware. UEFI is modern replacement for BIOS</p>
+          <p>• <strong>CMOS battery:</strong> CR2032 coin cell — keeps BIOS settings and clock when powered off</p>
+          <p>• <strong>Chipset:</strong> Controls communication between CPU, RAM, PCIe, storage</p>
+          <p>• <strong>PCIe lanes:</strong> x1 (1 lane), x4, x8, x16 (GPU slot — 16 lanes)</td></p>
+        </div>
+
+        <h3>RAM (Memory)</h3>
+        <table class="data-table">
+          <tr><th>Type</th><th>Speed</th><th>Notes</th></tr>
+          <tr><td>DDR3</td><td>800–2133 MHz</td><td>Legacy — older systems</td></tr>
+          <tr><td>DDR4</td><td>2133–5000 MHz</td><td>Current mainstream standard</td></tr>
+          <tr><td>DDR5</td><td>4800+ MHz</td><td>Newest — faster, more efficient</td></tr>
+          <tr><td>ECC RAM</td><td>Any</td><td>Error-Correcting Code — used in servers</td></tr>
+          <tr><td>SO-DIMM</td><td>Any</td><td>Laptop form factor — smaller</td></tr>
+        </table>
+
+        <p><strong>Channels:</strong> Dual-channel = 2 sticks in matching slots = double bandwidth. Always install in pairs for dual-channel.</p>
+
+        <h3>Storage Devices</h3>
+        <table class="data-table">
+          <tr><th>Type</th><th>Interface</th><th>Speed</th><th>Notes</th></tr>
+          <tr><td>HDD</td><td>SATA</td><td>100–200 MB/s</td><td>Spinning platter, cheap per GB</td></tr>
+          <tr><td>SATA SSD</td><td>SATA III</td><td>~550 MB/s</td><td>2.5" or M.2 SATA</td></tr>
+          <tr><td>M.2 NVMe</td><td>PCIe 3.0/4.0</td><td>3,500–7,000 MB/s</td><td>Fastest, small M.2 form factor</td></tr>
+          <tr><td>Optical (DVD)</td><td>SATA</td><td>~1 MB/s</td><td>CD/DVD/Blu-ray</td></tr>
+          <tr><td>USB Flash</td><td>USB</td><td>Varies</td><td>Portable storage</td></tr>
+        </table>
+
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — RAID Types</div>
+          <p>• <strong>RAID 0</strong> — Striping, NO redundancy, fastest read/write. Lose 1 drive = lose all data</p>
+          <p>• <strong>RAID 1</strong> — Mirroring, full redundancy, 50% usable space. Lose 1 drive = safe</p>
+          <p>• <strong>RAID 5</strong> — Striping + parity, min 3 drives, can lose 1 drive</p>
+          <p>• <strong>RAID 6</strong> — Like RAID 5 but can lose 2 drives, min 4 drives</p>
+          <p>• <strong>RAID 10</strong> — Mirror + stripe, min 4 drives, high performance + redundancy</p>
+          <p>Remember: RAID is NOT a backup!</p>
+        </div>
+
+        <h3>Power Supply (PSU)</h3>
+        <ul>
+          <li><strong>Wattage:</strong> Must meet total system demand + 20% headroom</li>
+          <li><strong>80 Plus rating:</strong> Bronze → Silver → Gold → Platinum → Titanium (efficiency)</li>
+          <li><strong>Connectors:</strong> 24-pin ATX (motherboard), 8-pin EPS (CPU), PCIe 6/8-pin (GPU)</li>
+          <li><strong>Modular PSU:</strong> Only cable in cables you need — cleaner builds</li>
+        </ul>
+
+        <h3>Expansion Cards</h3>
+        <table class="data-table">
+          <tr><th>Card</th><th>Function</th></tr>
+          <tr><td>GPU (Video Card)</td><td>Renders graphics — uses PCIe x16 slot</td></tr>
+          <tr><td>NIC (Network Card)</td><td>Adds network port — PCIe x1 or USB</td></tr>
+          <tr><td>Sound Card</td><td>Audio I/O — PCIe x1 or USB</td></tr>
+          <tr><td>RAID Controller</td><td>Hardware RAID management</td></tr>
+          <tr><td>Capture Card</td><td>Records video from external sources</td></tr>
+        </table>
+
+        <h3>Connectors & Ports (Must Know)</h3>
+        <table class="data-table">
+          <tr><th>Port</th><th>Shape/Pins</th><th>Key Fact</th></tr>
+          <tr><td>USB-A</td><td>Rectangular</td><td>Original USB — directional</td></tr>
+          <tr><td>USB-C</td><td>Oval, reversible</td><td>Modern standard — supports USB3, Thunderbolt, video</td></tr>
+          <tr><td>USB 3.0</td><td>Blue color</td><td>5 Gbps — blue ports/plugs</td></tr>
+          <tr><td>USB 3.1</td><td>Teal/blue</td><td>10 Gbps</td></tr>
+          <tr><td>Thunderbolt 3/4</td><td>USB-C + lightning bolt</td><td>40 Gbps, supports 2x4K monitors</td></tr>
+          <tr><td>SATA Data</td><td>L-shaped 7-pin</td><td>Connects HDD/SSD to motherboard</td></tr>
+          <tr><td>SATA Power</td><td>15-pin flat</td><td>Power from PSU to drives</td></tr>
+        </table>
+
+        <h3>Cooling Systems</h3>
+        <ul>
+          <li><strong>Air cooling:</strong> Heatsink + fan — attaches to CPU, standard approach</li>
+          <li><strong>Liquid/AIO cooling:</strong> All-in-one cooler — pump, radiator, fans. Better for overclocking</li>
+          <li><strong>Thermal paste:</strong> Applied between CPU and heatsink — improves heat transfer</li>
+          <li><strong>Case fans:</strong> Intake (front/bottom) and exhaust (rear/top) — positive pressure vs. negative</li>
+        </ul>
+      </div>
+
+      <!-- VIRTUALIZATION & CLOUD -->
+      <div class="content-card" id="c1-virt">
+        <h2><div class="section-icon icon-yellow">☁️</div> Domain 4: Virtualization & Cloud (11%)</h2>
+
+        <h3>Virtualization Concepts</h3>
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Key Terms</div>
+          <p>• <strong>Hypervisor:</strong> Software that creates and manages VMs</p>
+          <p>• <strong>Type 1 Hypervisor:</strong> Bare-metal — runs directly on hardware. Examples: VMware ESXi, Hyper-V (server), Proxmox</p>
+          <p>• <strong>Type 2 Hypervisor:</strong> Hosted — runs on top of an OS. Examples: VMware Workstation, VirtualBox</p>
+          <p>• <strong>VM (Virtual Machine):</strong> Emulates a complete computer in software</p>
+          <p>• <strong>Container:</strong> Lightweight virtualization — shares host OS kernel (Docker)</p>
+          <p>• <strong>Snapshot:</strong> Point-in-time save of VM state — easy rollback</p>
+        </div>
+
+        <h3>Cloud Service Models</h3>
+        <table class="data-table">
+          <tr><th>Model</th><th>What You Manage</th><th>Examples</th></tr>
+          <tr><td>IaaS — Infrastructure</td><td>OS, apps, data</td><td>AWS EC2, Azure VMs, Google Compute</td></tr>
+          <tr><td>PaaS — Platform</td><td>Apps, data only</td><td>Heroku, Azure App Service, Google App Engine</td></tr>
+          <tr><td>SaaS — Software</td><td>Just use it</td><td>Gmail, Office 365, Salesforce, Dropbox</td></tr>
+        </table>
+
+        <div class="mnemonic">
+          <div class="mnemonic-label">🧠 MNEMONIC — Cloud Models (bottom to top)</div>
+          <div class="mnemonic-word">"I Picked Software"</div>
+          <p><b>I</b>aaS — <b>P</b>aaS — <b>S</b>aaS (more managed each step up)</p>
+        </div>
+
+        <h3>Cloud Deployment Models</h3>
+        <ul>
+          <li><strong>Public Cloud:</strong> Shared infrastructure (AWS, Azure, GCP) — pay-as-you-go</li>
+          <li><strong>Private Cloud:</strong> Dedicated infrastructure — organization owns/controls</li>
+          <li><strong>Hybrid Cloud:</strong> Mix of public + private — flexible</li>
+          <li><strong>Community Cloud:</strong> Shared by specific group (e.g., healthcare orgs)</li>
+        </ul>
+
+        <h3>Cloud Characteristics</h3>
+        <ul>
+          <li><strong>On-demand self-service:</strong> Provision resources without human interaction</li>
+          <li><strong>Rapid elasticity:</strong> Scale up/down automatically</li>
+          <li><strong>Measured service:</strong> Pay only for what you use</li>
+          <li><strong>Resource pooling:</strong> Shared resources across multiple customers (multi-tenancy)</li>
+          <li><strong>Broad network access:</strong> Accessible from anywhere</li>
+        </ul>
+      </div>
+
+      <!-- HARDWARE TROUBLESHOOTING -->
+      <div class="content-card" id="c1-troubleshoot">
+        <h2><div class="section-icon icon-blue">🔧</div> Domain 5: Hardware Troubleshooting (29%)</h2>
+        <p>The largest domain by weight. Follow the <strong>CompTIA troubleshooting methodology</strong> and know common symptoms.</p>
+
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — CompTIA 6-Step Troubleshooting Process</div>
+          <p>1. <strong>Identify the problem</strong> — gather info, question the user, check logs</p>
+          <p>2. <strong>Establish a theory of probable cause</strong> — consider obvious causes first (Occam's Razor)</p>
+          <p>3. <strong>Test the theory</strong> — confirm it's right; if wrong, re-establish new theory</p>
+          <p>4. <strong>Establish a plan of action</strong> — make a plan, identify side effects</p>
+          <p>5. <strong>Implement the solution</strong> — fix it or escalate if needed</p>
+          <p>6. <strong>Verify functionality & prevent recurrence</strong> — document, educate user</p>
+        </div>
+
+        <h3>Common Hardware Symptoms</h3>
+        <table class="data-table">
+          <tr><th>Symptom</th><th>Likely Cause</th></tr>
+          <tr><td>POST beep codes</td><td>Hardware failure — beeps indicate specific errors (RAM, GPU, CPU)</td></tr>
+          <tr><td>No POST / no power</td><td>Dead PSU, loose power cable, bad motherboard</td></tr>
+          <tr><td>Blue Screen of Death (BSOD)</td><td>Driver issue, bad RAM, overheating, failing HDD</td></tr>
+          <tr><td>Grinding noise from PC</td><td>Failing HDD (clicking) or failing fan bearing</td></tr>
+          <tr><td>Overheating / shutdowns</td><td>Clogged fans, bad thermal paste, broken cooler</td></tr>
+          <tr><td>Artifacts on screen</td><td>Failing GPU or overheating GPU</td></tr>
+          <tr><td>Slow performance</td><td>HDD failing, insufficient RAM, malware, overheating</td></tr>
+          <tr><td>No display but power on</td><td>Bad GPU, loose cable, bad monitor</td></tr>
+        </table>
+
+        <h3>Printer Types & Troubleshooting</h3>
+        <table class="data-table">
+          <tr><th>Printer Type</th><th>How It Works</th><th>Key Issues</th></tr>
+          <tr><td>Laser</td><td>Toner + heat/pressure fuser</td><td>Fuser failure (smeared toner), drum issues</td></tr>
+          <tr><td>Inkjet</td><td>Liquid ink sprayed</td><td>Clogged heads, banding, smears</td></tr>
+          <tr><td>Thermal</td><td>Heat-sensitive paper</td><td>Faded output = bad paper or head, no toner needed</td></tr>
+          <tr><td>Impact/Dot Matrix</td><td>Pins strike ribbon</td><td>Faded = worn ribbon, used for multi-part forms</td></tr>
+        </table>
+
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Laser Printer Process Order</div>
+          <p>Remember: <strong>Processing, Charging, Exposing, Developing, Transferring, Fusing, Cleaning</strong></p>
+          <p>Mnemonic: <strong>"Please Come Early, Do The Fun Class"</strong></p>
+        </div>
+
+        <h3>Display Troubleshooting</h3>
+        <ul>
+          <li><strong>Dead pixels:</strong> Always black — hardware defect</li>
+          <li><strong>Stuck pixels:</strong> Always one color — can sometimes be fixed with software</li>
+          <li><strong>Backlight bleeding:</strong> Light leaks at edges — normal for IPS panels</li>
+          <li><strong>Burn-in:</strong> Ghost image burned in — common on OLED/plasma</li>
+          <li><strong>Flickering:</strong> Bad cable, bad GPU connection, or refresh rate mismatch</li>
+          <li><strong>Dim display:</strong> Backlight failure or brightness setting too low</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CORE 2 GUIDE -->
+<section id="guide-core2" class="section">
+  <div style="margin-bottom:24px;">
+    <div class="hero-badge" style="border-color:var(--accent3);color:var(--accent3);">220-1102 STUDY GUIDE</div>
+    <h1 style="font-family:var(--sans);font-size:36px;font-weight:800;margin:12px 0;background:linear-gradient(135deg,#fff,var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Core 2: OS, Security & Support</h1>
+    <p style="color:var(--text-dim);">Domain breakdown: OS 31% • Security 25% • Software Troubleshooting 22% • Operational Procedures 22%</p>
+  </div>
+
+  <div class="guide-grid">
+    <div class="guide-sidebar">
+      <h3>Domains</h3>
+      <div class="sidebar-item active" onclick="scrollToAnchor('c2-os')"><span class="sidebar-dot"></span>1. Operating Systems</div>
+      <div class="sidebar-item" onclick="scrollToAnchor('c2-security')"><span class="sidebar-dot"></span>2. Security</div>
+      <div class="sidebar-item" onclick="scrollToAnchor('c2-software')"><span class="sidebar-dot"></span>3. Software Troubleshoot</div>
+      <div class="sidebar-item" onclick="scrollToAnchor('c2-ops')"><span class="sidebar-dot"></span>4. Operational Procedures</div>
+    </div>
+
+    <div class="guide-content">
+
+      <!-- OS -->
+      <div class="content-card" id="c2-os">
+        <h2><div class="section-icon icon-green">💻</div> Domain 1: Operating Systems (31%)</h2>
+        <p>Biggest domain. Know Windows inside and out, plus macOS and Linux basics.</p>
+
+        <h3>Windows Editions</h3>
+        <table class="data-table">
+          <tr><th>Edition</th><th>Use Case</th><th>Key Feature</th></tr>
+          <tr><td>Windows Home</td><td>Consumers</td><td>Basic features, no Group Policy, no domain join</td></tr>
+          <tr><td>Windows Pro</td><td>Business/power users</td><td>Group Policy, BitLocker, Remote Desktop (host), domain join</td></tr>
+          <tr><td>Windows Pro for Workstations</td><td>High-end workstations</td><td>NVMe RAID, ReFS file system, more RAM support</td></tr>
+          <tr><td>Windows Enterprise</td><td>Large organizations</td><td>DirectAccess, AppLocker, BranchCache</td></tr>
+          <tr><td>Windows Education</td><td>Schools</td><td>Similar to Enterprise</td></tr>
+        </table>
+
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Windows Key Tools</div>
+          <p>• <strong>Task Manager</strong> — Ctrl+Shift+Esc — see processes, CPU/RAM usage, kill tasks</p>
+          <p>• <strong>Device Manager</strong> — devmgmt.msc — driver issues, hardware conflicts (yellow !)</p>
+          <p>• <strong>Event Viewer</strong> — eventvwr.msc — log of all system events and errors</p>
+          <p>• <strong>Registry Editor</strong> — regedit — edit Windows registry (dangerous!)</p>
+          <p>• <strong>Group Policy</strong> — gpedit.msc — Pro/Enterprise only — enforce settings</p>
+          <p>• <strong>Computer Management</strong> — compmgmt.msc — all-in-one admin console</p>
+          <p>• <strong>Disk Management</strong> — diskmgmt.msc — partition/format drives</p>
+          <p>• <strong>Services</strong> — services.msc — start/stop/configure background services</p>
+          <p>• <strong>System Configuration</strong> — msconfig — startup, boot options, safe mode</p>
+        </div>
+
+        <h3>Windows File Systems</h3>
+        <table class="data-table">
+          <tr><th>File System</th><th>Use</th><th>Key Facts</th></tr>
+          <tr><td>NTFS</td><td>Windows default</td><td>Permissions, encryption, compression, journaling, large files</td></tr>
+          <tr><td>FAT32</td><td>USB drives, compatibility</td><td>Max file size 4GB, max volume 32GB, compatible with everything</td></tr>
+          <tr><td>exFAT</td><td>Modern USB/SD</td><td>No file size limit, good cross-platform compatibility</td></tr>
+          <tr><td>ReFS</td><td>Windows Server/Workstations Pro</td><td>Resilient File System — self-healing, large volumes</td></tr>
+          <tr><td>ext4</td><td>Linux</td><td>Default Linux file system</td></tr>
+          <tr><td>APFS</td><td>macOS</td><td>Apple File System — SSD optimized, encryption</td></tr>
+          <tr><td>HFS+</td><td>Older macOS</td><td>Legacy — replaced by APFS</td></tr>
+        </table>
+
+        <h3>Windows Command Line Tools</h3>
+        <table class="data-table">
+          <tr><th>Command</th><th>Function</th></tr>
+          <tr><td>sfc /scannow</td><td>System File Checker — fixes corrupted Windows files</td></tr>
+          <tr><td>DISM</td><td>Deployment Image Servicing — repairs Windows image</td></tr>
+          <tr><td>chkdsk</td><td>Check disk for errors and bad sectors</td></tr>
+          <tr><td>diskpart</td><td>Advanced disk partitioning tool</td></tr>
+          <tr><td>format</td><td>Formats a drive</td></tr>
+          <tr><td>net use</td><td>Map/disconnect network drives</td></tr>
+          <tr><td>gpupdate /force</td><td>Forces Group Policy refresh</td></tr>
+          <tr><td>shutdown /r /t 0</td><td>Immediate restart</td></tr>
+          <tr><td>robocopy</td><td>Robust file copy with advanced options</td></tr>
+          <tr><td>xcopy</td><td>Extended copy — copies files and directories</td></tr>
+        </table>
+
+        <h3>Boot Process & Startup</h3>
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Windows Boot Process</div>
+          <p>1. <strong>POST</strong> — Power-On Self Test (hardware check)</p>
+          <p>2. <strong>BIOS/UEFI</strong> — Finds boot device</p>
+          <p>3. <strong>MBR or GPT</strong> — Partition table (MBR = legacy, GPT = modern UEFI)</p>
+          <p>4. <strong>Boot Manager (bootmgr)</strong> — Loads Windows boot loader</p>
+          <p>5. <strong>winload.exe</strong> — Loads Windows kernel</p>
+          <p>6. <strong>ntoskrnl.exe</strong> — Windows kernel loads drivers, starts services</p>
+          <p>7. <strong>winlogon.exe / LogonUI</strong> — Login screen appears</p>
+        </div>
+
+        <h3>macOS & Linux Basics</h3>
+        <table class="data-table">
+          <tr><th>Feature</th><th>macOS</th><th>Linux</th></tr>
+          <tr><td>Package manager</td><td>App Store / Homebrew</td><td>apt (Debian), yum/dnf (RHEL), pacman (Arch)</td></tr>
+          <tr><td>Terminal</td><td>Terminal.app / zsh</td><td>bash/zsh — powerful CLI</td></tr>
+          <tr><td>File system</td><td>APFS (HFS+ legacy)</td><td>ext4 (most common)</td></tr>
+          <tr><td>Disk utility</td><td>Disk Utility.app</td><td>fdisk, gparted</td></tr>
+          <tr><td>Updates</td><td>System Preferences → Software Update</td><td>apt update && apt upgrade</td></tr>
+        </table>
+      </div>
+
+      <!-- SECURITY -->
+      <div class="content-card" id="c2-security">
+        <h2><div class="section-icon icon-yellow">🔒</div> Domain 2: Security (25%)</h2>
+
+        <h3>Malware Types</h3>
+        <table class="data-table">
+          <tr><th>Malware</th><th>How It Works</th></tr>
+          <tr><td>Virus</td><td>Attaches to files, spreads when file is executed</td></tr>
+          <tr><td>Worm</td><td>Self-replicates across network WITHOUT user action</td></tr>
+          <tr><td>Trojan</td><td>Disguised as legitimate software — creates backdoor</td></tr>
+          <tr><td>Ransomware</td><td>Encrypts files, demands payment for key</td></tr>
+          <tr><td>Spyware</td><td>Secretly monitors and reports user activity</td></tr>
+          <tr><td>Adware</td><td>Displays unwanted ads, often bundled with free software</td></tr>
+          <tr><td>Rootkit</td><td>Hides itself in OS, gives admin access to attacker</td></tr>
+          <tr><td>Keylogger</td><td>Records keystrokes to steal passwords</td></tr>
+          <tr><td>Botnet</td><td>Network of infected machines controlled remotely</td></tr>
+        </table>
+
+        <h3>Social Engineering Attacks</h3>
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Social Engineering Types</div>
+          <p>• <strong>Phishing</strong> — Fake email that tricks you into revealing credentials or clicking malicious links</p>
+          <p>• <strong>Spear phishing</strong> — Targeted phishing aimed at specific individual/organization</p>
+          <p>• <strong>Whaling</strong> — Phishing targeting executives (C-level)</p>
+          <p>• <strong>Vishing</strong> — Voice phishing — phone call scam</p>
+          <p>• <strong>Smishing</strong> — SMS phishing — text message scam</p>
+          <p>• <strong>Tailgating/Piggybacking</strong> — Following someone through a secure door</td></p>
+          <p>• <strong>Shoulder surfing</strong> — Watching someone enter passwords</p>
+          <p>• <strong>Dumpster diving</strong> — Finding sensitive info in trash</p>
+          <p>• <strong>Pretexting</strong> — Creating a fake scenario to manipulate someone</p>
+        </div>
+
+        <h3>Authentication Methods</h3>
+        <table class="data-table">
+          <tr><th>Factor</th><th>Type</th><th>Examples</th></tr>
+          <tr><td>Something you know</td><td>Knowledge</td><td>Password, PIN, security question</td></tr>
+          <tr><td>Something you have</td><td>Possession</td><td>Smart card, token, phone (TOTP)</td></tr>
+          <tr><td>Something you are</td><td>Biometric</td><td>Fingerprint, face, iris, retina</td></tr>
+          <tr><td>Somewhere you are</td><td>Location</td><td>GPS location, network location</td></tr>
+          <tr><td>MFA</td><td>Multi-Factor</td><td>Combines 2+ of the above</td></tr>
+        </table>
+
+        <h3>Encryption & Security Tools</h3>
+        <ul>
+          <li><strong>BitLocker:</strong> Windows full-disk encryption (Pro/Enterprise required)</li>
+          <li><strong>FileVault:</strong> macOS full-disk encryption</li>
+          <li><strong>EFS (Encrypting File System):</strong> NTFS-level file encryption (Pro+)</li>
+          <li><strong>TPM (Trusted Platform Module):</strong> Hardware chip that stores encryption keys securely — required for BitLocker</li>
+          <li><strong>VPN:</strong> Encrypts traffic over public networks — tunnel to private network</li>
+          <li><strong>TLS/SSL:</strong> Encrypts web traffic (HTTPS)</li>
+        </ul>
+
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Windows Security Features</div>
+          <p>• <strong>Windows Defender:</strong> Built-in antivirus/anti-malware</p>
+          <p>• <strong>Windows Firewall:</strong> Built-in host-based firewall</p>
+          <p>• <strong>UAC (User Account Control):</strong> Prompts for admin approval before system changes</p>
+          <p>• <strong>Windows Hello:</strong> Biometric/PIN authentication for Windows login</p>
+          <p>• <strong>Secure Boot:</strong> UEFI feature — blocks unsigned bootloaders (anti-rootkit)</p>
+          <p>• <strong>Principle of least privilege:</strong> Give users ONLY the access they need</p>
+        </div>
+
+        <h3>Physical Security</h3>
+        <ul>
+          <li><strong>Mantrap:</strong> Two-door entry — one opens only when other closes</li>
+          <li><strong>Badge/key card:</strong> RFID-based access control</li>
+          <li><strong>Biometric locks:</strong> Fingerprint, retinal scan</li>
+          <li><strong>Cable lock:</strong> Kensington lock — physically secures laptops</li>
+          <li><strong>Privacy screen:</strong> Limits viewing angle to prevent shoulder surfing</li>
+          <li><strong>Faraday cage:</strong> Blocks all electromagnetic signals</li>
+        </ul>
+
+        <h3>Wireless Security</h3>
+        <table class="data-table">
+          <tr><th>Protocol</th><th>Security</th><th>Status</th></tr>
+          <tr><td>WEP</td><td>Very weak (RC4)</td><td>Deprecated — DO NOT USE</td></tr>
+          <tr><td>WPA</td><td>TKIP encryption</td><td>Deprecated</td></tr>
+          <tr><td>WPA2</td><td>AES/CCMP encryption</td><td>Current standard (Personal + Enterprise)</td></tr>
+          <tr><td>WPA3</td><td>SAE — stronger handshake</td><td>Newest — most secure</td></tr>
+        </table>
+      </div>
+
+      <!-- SOFTWARE TROUBLESHOOTING -->
+      <div class="content-card" id="c2-software">
+        <h2><div class="section-icon icon-purple">⚙️</div> Domain 3: Software Troubleshooting (22%)</h2>
+
+        <h3>Windows Troubleshooting Tools</h3>
+        <table class="data-table">
+          <tr><th>Tool</th><th>Purpose</th></tr>
+          <tr><td>Safe Mode</td><td>Boot with minimal drivers — diagnose driver/malware issues</td></tr>
+          <tr><td>System Restore</td><td>Roll back system to previous working state</td></tr>
+          <tr><td>Windows Recovery Environment (WinRE)</td><td>Advanced repair tools outside Windows</td></tr>
+          <tr><td>Startup Repair</td><td>Automatically fixes common boot problems</td></tr>
+          <tr><td>sfc /scannow</td><td>Repairs corrupted system files</td></tr>
+          <tr><td>DISM /RestoreHealth</td><td>Repairs Windows image — use before sfc if needed</td></tr>
+          <tr><td>Memory Diagnostic</td><td>Tests RAM for errors — mdsched.exe</td></tr>
+        </table>
+
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Safe Mode Types</div>
+          <p>• <strong>Safe Mode</strong> — Minimal drivers, no network</p>
+          <p>• <strong>Safe Mode with Networking</strong> — Safe mode + network drivers (for downloading fixes)</p>
+          <p>• <strong>Safe Mode with Command Prompt</strong> — No GUI, just command line</p>
+          <p>Access via: F8 during boot (older) or Settings → Recovery → Advanced Startup (Windows 10/11)</p>
+        </div>
+
+        <h3>Common Windows Problems</h3>
+        <table class="data-table">
+          <tr><th>Problem</th><th>Solution</th></tr>
+          <tr><td>PC won't boot — "Missing OS"</td><td>Check boot order in BIOS, run Startup Repair</td></tr>
+          <tr><td>BSOD (Blue Screen)</td><td>Note stop code, check recent drivers, run memory test</td></tr>
+          <tr><td>Application won't install</td><td>Check UAC, compatibility mode, admin rights, .NET/VC++ dependencies</td></tr>
+          <tr><td>Slow performance</td><td>Check Task Manager, disable startup programs, check disk health</td></tr>
+          <tr><td>Profile errors at login</td><td>Corrupt user profile — create new profile, copy files</td></tr>
+          <tr><td>Time wrong / BSOD after OC</td><td>CMOS battery dead / overclock unstable</td></tr>
+        </table>
+
+        <h3>Malware Removal Process</h3>
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — CompTIA Malware Removal Steps</div>
+          <p>1. <strong>Investigate and verify</strong> malware symptoms</p>
+          <p>2. <strong>Quarantine</strong> the infected system (disconnect from network!)</p>
+          <p>3. <strong>Disable System Restore</strong> (prevents malware hiding in restore points)</p>
+          <p>4. <strong>Remediate</strong> — scan with anti-malware, remove threats</p>
+          <p>5. <strong>Schedule scans and run updates</strong></p>
+          <p>6. <strong>Enable System Restore</strong> and create a restore point</p>
+          <p>7. <strong>Educate the end user</strong></p>
+        </div>
+
+        <h3>Mobile OS Troubleshooting</h3>
+        <ul>
+          <li><strong>Hard reset:</strong> Force restart — hold power + volume buttons</li>
+          <li><strong>Factory reset:</strong> Wipes all data — last resort</li>
+          <li><strong>App crashing:</strong> Clear app cache, update app, reinstall</li>
+          <li><strong>Battery draining fast:</strong> Check background apps, location services, brightness</li>
+          <li><strong>No cellular data:</strong> Check APN settings, airplane mode toggle, carrier settings update</li>
+        </ul>
+      </div>
+
+      <!-- OPERATIONAL PROCEDURES -->
+      <div class="content-card" id="c2-ops">
+        <h2><div class="section-icon icon-blue">📋</div> Domain 4: Operational Procedures (22%)</h2>
+
+        <h3>Documentation & Change Management</h3>
+        <ul>
+          <li><strong>Change management:</strong> Formal process for making changes — request, approve, implement, verify, document</li>
+          <li><strong>Network diagram:</strong> Visual map of network topology</li>
+          <li><strong>Inventory management:</strong> Track hardware/software assets</li>
+          <li><strong>Acceptable Use Policy (AUP):</strong> Rules for using company IT resources</li>
+          <li><strong>Incident reports:</strong> Document security incidents</li>
+          <li><strong>Knowledge base:</strong> Documented solutions to common problems</li>
+        </ul>
+
+        <h3>Backup Strategies</h3>
+        <table class="data-table">
+          <tr><th>Backup Type</th><th>What It Backs Up</th><th>Restore Time</th></tr>
+          <tr><td>Full Backup</td><td>Everything, every time</td><td>Fastest restore — just one backup</td></tr>
+          <tr><td>Incremental</td><td>Changes since last backup (any type)</td><td>Slowest restore — need full + all incrementals</td></tr>
+          <tr><td>Differential</td><td>Changes since last FULL backup</td><td>Medium restore — need full + latest differential</td></tr>
+        </table>
+
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Backup Rule: 3-2-1</div>
+          <p>• <strong>3</strong> copies of data</p>
+          <p>• <strong>2</strong> different storage types (e.g., HDD + cloud)</p>
+          <p>• <strong>1</strong> offsite copy</p>
+          <p><strong>RTO</strong> = Recovery Time Objective — how long can system be down?</p>
+          <p><strong>RPO</strong> = Recovery Point Objective — how much data loss is acceptable?</p>
+        </div>
+
+        <h3>Safety & Environmental</h3>
+        <ul>
+          <li><strong>ESD (Electrostatic Discharge):</strong> Always use anti-static wrist strap when handling components</li>
+          <li><strong>ESD mat:</strong> Work surface that drains static</li>
+          <li><strong>SDS (Safety Data Sheet):</strong> Required for hazardous materials — handling, disposal info</li>
+          <li><strong>RoHS:</strong> Restriction of Hazardous Substances — limits lead, mercury in electronics</li>
+          <li><strong>WEEE:</strong> Electronic waste directive — proper recycling of e-waste</li>
+          <li><strong>Battery disposal:</strong> Never throw batteries in regular trash — take to recycling center</li>
+        </ul>
+
+        <h3>Privacy & Licensing</h3>
+        <table class="data-table">
+          <tr><th>License Type</th><th>Description</th></tr>
+          <tr><td>OEM</td><td>Original Equipment Manufacturer — tied to hardware it shipped with</td></tr>
+          <tr><td>Retail</td><td>Can be transferred between computers</td></tr>
+          <tr><td>Volume</td><td>Single key for many installs — enterprise use</td></tr>
+          <tr><td>Subscription</td><td>Pay per month/year (Microsoft 365, Adobe CC)</td></tr>
+          <tr><td>Open Source</td><td>Free to use/modify — GPL, MIT licenses</td></tr>
+          <tr><td>Freeware</td><td>Free to use, not open source</td></tr>
+        </table>
+
+        <h3>Communication & Professionalism</h3>
+        <div class="must-know">
+          <div class="must-know-header">⚠️ MUST KNOW — Professionalism Tips (on exam!)</div>
+          <p>• <strong>Active listening</strong> — Don't interrupt; let user finish</p>
+          <p>• <strong>Avoid jargon</strong> — Use plain language with end users</p>
+          <p>• <strong>Set expectations</strong> — Tell user timeline before you start</p>
+          <p>• <strong>Never dismiss concerns</strong> — Take all reports seriously</p>
+          <p>• <strong>Respect privacy</strong> — Don't snoop through user files</p>
+          <p>• <strong>Follow up</strong> — Check with user after resolving issue</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MEMORY AIDS -->
+<section id="memory" class="section">
+  <div style="margin-bottom:32px;">
+    <div class="hero-badge">MEMORY AIDS</div>
+    <h1 style="font-family:var(--sans);font-size:36px;font-weight:800;margin:12px 0;color:var(--text);">Mnemonics & Memory Tricks</h1>
+    <p style="color:var(--text-dim);">Lock in the hardest-to-remember facts with these tested memory aids.</p>
+  </div>
+
+  <div class="memory-grid">
+    <div class="memory-card">
+      <h3>🖨️ Laser Printer Process</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">Please Come Early, Do The Fun Class</div>
+        <div class="mnem-expand"><b>P</b>rocessing → <b>C</b>harging → <b>E</b>xposing → <b>D</b>eveloping → <b>T</b>ransferring → <b>F</b>using → <b>C</b>leaning</div>
+      </div>
+    </div>
+
+    <div class="memory-card">
+      <h3>📡 Wi-Fi Standards</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">A Boy Going Nowhere Across Airports</div>
+        <div class="mnem-expand"><b>A</b> (a) · <b>B</b>oy (b) · <b>G</b>oing (g) · <b>N</b>owhere (n) · <b>A</b>cross (ac) · <b>A</b>irports (ax)</div>
+      </div>
+    </div>
+
+    <div class="memory-card">
+      <h3>☁️ Cloud Models</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">I Picked Software</div>
+        <div class="mnem-expand"><b>I</b>aaS = Infrastructure · <b>P</b>aaS = Platform · <b>S</b>aaS = Software</div>
+      </div>
+    </div>
+
+    <div class="memory-card">
+      <h3>🔧 Troubleshooting Steps</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">I Eat The Elephant In Vehicles</div>
+        <div class="mnem-expand"><b>I</b>dentify · <b>E</b>stablish theory · <b>T</b>est theory · <b>E</b>stablish plan · <b>I</b>mplement · <b>V</b>erify & document</div>
+      </div>
+    </div>
+
+    <div class="memory-card">
+      <h3>🛡️ RAID Types</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">0 = Zero safety (striping)</div>
+        <div class="mnem-expand">RAID <b>0</b> = Zero redundancy = DANGER · RAID <b>1</b> = One mirror = safe · RAID <b>5</b> = Five fingers = can lose one · RAID <b>10</b> = Ten = best of both (1+0)</div>
+      </div>
+    </div>
+
+    <div class="memory-card">
+      <h3>🔐 Auth Factors</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">Know · Have · Are · Where</div>
+        <div class="mnem-expand">Something you <b>Know</b> (password) · Something you <b>Have</b> (token) · Something you <b>Are</b> (biometric) · Somewhere you <b>Are</b> (location)</div>
+      </div>
+    </div>
+
+    <div class="memory-card">
+      <h3>📦 OSI Model Layers</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">Please Do Not Throw Sausage Pizza Away</div>
+        <div class="mnem-expand"><b>P</b>hysical · <b>D</b>ata Link · <b>N</b>etwork · <b>T</b>ransport · <b>S</b>ession · <b>P</b>resentation · <b>A</b>pplication (layers 1–7)</div>
+      </div>
+    </div>
+
+    <div class="memory-card">
+      <h3>💾 Backup Types</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">Full = Fast restore · Incremental = Slow restore</div>
+        <div class="mnem-expand"><b>Full</b>: Copy everything, restore easiest · <b>Incremental</b>: Fast backup, slow restore (needs all incrementals) · <b>Differential</b>: Middle ground (only needs full + latest diff)</div>
+      </div>
+    </div>
+
+    <div class="memory-card">
+      <h3>🌐 IPv4 Private Ranges</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">10, 172.16–31, 192.168</div>
+        <div class="mnem-expand"><b>10</b>.x.x.x = Class A (big corp) · <b>172.16–31</b>.x.x = Class B (medium) · <b>192.168</b>.x.x = Class C (home) · <b>169.254</b>.x.x = APIPA (no DHCP!)</div>
+      </div>
+    </div>
+
+    <div class="memory-card">
+      <h3>🦠 Malware Quick Reference</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">Virus spreads. Worm walks. Trojan lies.</div>
+        <div class="mnem-expand"><b>Virus</b> = needs a host file · <b>Worm</b> = self-spreads over network · <b>Trojan</b> = disguised · <b>Ransomware</b> = encrypts files · <b>Rootkit</b> = hides in OS</div>
+      </div>
+    </div>
+
+    <div class="memory-card">
+      <h3>🖥️ Motherboard Form Factors</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">ATX > Micro-ATX > Mini-ITX</div>
+        <div class="mnem-expand"><b>ATX</b> = Full size, most slots · <b>Micro-ATX</b> = Smaller, fewer slots · <b>Mini-ITX</b> = Tiny, 1 PCIe slot · Larger board = more expansion slots</div>
+      </div>
+    </div>
+
+    <div class="memory-card">
+      <h3>📧 Email Ports</h3>
+      <div class="mnem-item">
+        <div class="mnem-acronym">SMTP Sends · POP3 Pulls · IMAP Keeps</div>
+        <div class="mnem-expand"><b>25</b> SMTP = Send mail · <b>110</b> POP3 = Download + delete · <b>143</b> IMAP = Sync, stays on server</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHEAT SHEET -->
+<section id="cheatsheet" class="section">
+  <div style="margin-bottom:32px;">
+    <div class="hero-badge">QUICK REFERENCE</div>
+    <h1 style="font-family:var(--sans);font-size:36px;font-weight:800;margin:12px 0;color:var(--text);">A+ Cheat Sheet</h1>
+    <p style="color:var(--text-dim);">The most important numbers, ports, and facts — all in one place.</p>
+  </div>
+
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <h4>⚡ TCP/IP Ports</h4>
+      <div class="cheat-row"><span class="cheat-key">FTP (data)</span><span class="cheat-val">20</span></div>
+      <div class="cheat-row"><span class="cheat-key">FTP (control)</span><span class="cheat-val">21</span></div>
+      <div class="cheat-row"><span class="cheat-key">SSH</span><span class="cheat-val">22</span></div>
+      <div class="cheat-row"><span class="cheat-key">Telnet</span><span class="cheat-val">23</span></div>
+      <div class="cheat-row"><span class="cheat-key">SMTP</span><span class="cheat-val">25</span></div>
+      <div class="cheat-row"><span class="cheat-key">DNS</span><span class="cheat-val">53</span></div>
+      <div class="cheat-row"><span class="cheat-key">DHCP server</span><span class="cheat-val">67</span></div>
+      <div class="cheat-row"><span class="cheat-key">DHCP client</span><span class="cheat-val">68</span></div>
+      <div class="cheat-row"><span class="cheat-key">HTTP</span><span class="cheat-val">80</span></div>
+      <div class="cheat-row"><span class="cheat-key">POP3</span><span class="cheat-val">110</span></div>
+      <div class="cheat-row"><span class="cheat-key">IMAP</span><span class="cheat-val">143</span></div>
+      <div class="cheat-row"><span class="cheat-key">HTTPS</span><span class="cheat-val">443</span></div>
+      <div class="cheat-row"><span class="cheat-key">SMB</span><span class="cheat-val">445</span></div>
+      <div class="cheat-row"><span class="cheat-key">RDP</span><span class="cheat-val">3389</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4>🌐 IP Addresses</h4>
+      <div class="cheat-row"><span class="cheat-key">Loopback</span><span class="cheat-val">127.0.0.1</span></div>
+      <div class="cheat-row"><span class="cheat-key">APIPA</span><span class="cheat-val">169.254.x.x</span></div>
+      <div class="cheat-row"><span class="cheat-key">Class A private</span><span class="cheat-val">10.x.x.x</span></div>
+      <div class="cheat-row"><span class="cheat-key">Class B private</span><span class="cheat-val">172.16–31.x.x</span></div>
+      <div class="cheat-row"><span class="cheat-key">Class C private</span><span class="cheat-val">192.168.x.x</span></div>
+      <div class="cheat-row"><span class="cheat-key">/24 subnet</span><span class="cheat-val">255.255.255.0</span></div>
+      <div class="cheat-row"><span class="cheat-key">/16 subnet</span><span class="cheat-val">255.255.0.0</span></div>
+      <div class="cheat-row"><span class="cheat-key">/8 subnet</span><span class="cheat-val">255.0.0.0</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4>📡 Wi-Fi Standards</h4>
+      <div class="cheat-row"><span class="cheat-key">802.11a</span><span class="cheat-val">54Mbps / 5GHz</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11b</span><span class="cheat-val">11Mbps / 2.4GHz</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11g</span><span class="cheat-val">54Mbps / 2.4GHz</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11n (Wi-Fi 4)</span><span class="cheat-val">600Mbps / dual</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11ac (Wi-Fi 5)</span><span class="cheat-val">3.5Gbps / 5GHz</span></div>
+      <div class="cheat-row"><span class="cheat-key">802.11ax (Wi-Fi 6)</span><span class="cheat-val">9.6Gbps / tri</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4>💾 Cable Categories</h4>
+      <div class="cheat-row"><span class="cheat-key">Cat 5</span><span class="cheat-val">100Mbps / 100m</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cat 5e</span><span class="cheat-val">1Gbps / 100m</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cat 6</span><span class="cheat-val">10Gbps / 55m</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cat 6a</span><span class="cheat-val">10Gbps / 100m</span></div>
+      <div class="cheat-row"><span class="cheat-key">Cat 8</span><span class="cheat-val">40Gbps / 30m</span></div>
+      <div class="cheat-row"><span class="cheat-key">SMF fiber</span><span class="cheat-val">Yellow / km range</span></div>
+      <div class="cheat-row"><span class="cheat-key">MMF fiber</span><span class="cheat-val">Orange / short</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4>🔒 Wireless Security</h4>
+      <div class="cheat-row"><span class="cheat-key">WEP</span><span class="cheat-val">BROKEN — avoid</span></div>
+      <div class="cheat-row"><span class="cheat-key">WPA</span><span class="cheat-val">Deprecated</span></div>
+      <div class="cheat-row"><span class="cheat-key">WPA2-Personal</span><span class="cheat-val">AES / home use</span></div>
+      <div class="cheat-row"><span class="cheat-key">WPA2-Enterprise</span><span class="cheat-val">RADIUS server</span></div>
+      <div class="cheat-row"><span class="cheat-key">WPA3</span><span class="cheat-val">SAE / best</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4>🛠️ Windows Tools (run commands)</h4>
+      <div class="cheat-row"><span class="cheat-key">Device Manager</span><span class="cheat-val">devmgmt.msc</span></div>
+      <div class="cheat-row"><span class="cheat-key">Event Viewer</span><span class="cheat-val">eventvwr.msc</span></div>
+      <div class="cheat-row"><span class="cheat-key">Disk Management</span><span class="cheat-val">diskmgmt.msc</span></div>
+      <div class="cheat-row"><span class="cheat-key">Services</span><span class="cheat-val">services.msc</span></div>
+      <div class="cheat-row"><span class="cheat-key">Registry Editor</span><span class="cheat-val">regedit</span></div>
+      <div class="cheat-row"><span class="cheat-key">Group Policy</span><span class="cheat-val">gpedit.msc</span></div>
+      <div class="cheat-row"><span class="cheat-key">Task Manager</span><span class="cheat-val">Ctrl+Shift+Esc</span></div>
+      <div class="cheat-row"><span class="cheat-key">System Config</span><span class="cheat-val">msconfig</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4>📊 RAID Quick Reference</h4>
+      <div class="cheat-row"><span class="cheat-key">RAID 0</span><span class="cheat-val">Stripe / no redundancy</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID 1</span><span class="cheat-val">Mirror / 1 drive loss OK</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID 5</span><span class="cheat-val">Stripe+parity / min 3</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID 6</span><span class="cheat-val">Parity / 2 drive loss OK</span></div>
+      <div class="cheat-row"><span class="cheat-key">RAID 10</span><span class="cheat-val">Mirror+stripe / min 4</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4>🖥️ Display Technologies</h4>
+      <div class="cheat-row"><span class="cheat-key">IPS LCD</span><span class="cheat-val">Best color/angles</span></div>
+      <div class="cheat-row"><span class="cheat-key">TN LCD</span><span class="cheat-val">Fastest / poor angles</span></div>
+      <div class="cheat-row"><span class="cheat-key">VA LCD</span><span class="cheat-val">Best contrast</span></div>
+      <div class="cheat-row"><span class="cheat-key">OLED</span><span class="cheat-val">True black / burn-in risk</span></div>
+      <div class="cheat-row"><span class="cheat-key">LED</span><span class="cheat-val">LCD backlight type</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICE EXAMS -->
+<section id="exam" class="section">
+  <div style="margin-bottom:24px;">
+    <div class="hero-badge">PRACTICE EXAMS</div>
+    <h1 style="font-family:var(--sans);font-size:36px;font-weight:800;margin:12px 0;color:var(--text);">Full Practice Exams</h1>
+    <p style="color:var(--text-dim);">90 questions per exam, 3 versions per core. Aim for 80%+ before sitting the real exam.</p>
+  </div>
+
+  <div class="exam-type-selector">
+    <button class="exam-type-btn active" onclick="setExamType('core1')">📘 Core 1 (220-1101)</button>
+    <button class="exam-type-btn" onclick="setExamType('core2')">📗 Core 2 (220-1102)</button>
+  </div>
+
+  <div class="exam-controls">
+    <span style="color:var(--text-dim);font-size:14px;">Version:</span>
+    <div class="exam-version-btns">
+      <button class="version-btn active" onclick="loadExam(1)">Version 1</button>
+      <button class="version-btn" onclick="loadExam(2)">Version 2</button>
+      <button class="version-btn" onclick="loadExam(3)">Version 3</button>
+    </div>
+    <button class="btn btn-primary" onclick="startExam()" style="margin-left:auto;">Start Fresh Exam</button>
+  </div>
+
+  <div id="exam-area">
+    <!-- dynamically generated -->
+  </div>
+</section>
+
+</main>
+
+<script>
+// ===================== NAVIGATION =====================
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx = ['home','guide-core1','guide-core2','memory','cheatsheet','exam'].indexOf(id);
+  if(idx >= 0) document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function scrollToAnchor(id) {
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ===================== EXAM STATE =====================
+let currentExamType = 'core1';
+let currentVersion = 1;
+let currentQuestions = [];
+let userAnswers = {};
+let examStarted = false;
+
+function setExamType(type) {
+  currentExamType = type;
+  document.querySelectorAll('.exam-type-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  loadExam(currentVersion);
+}
+
+function loadExam(version) {
+  currentVersion = version;
+  document.querySelectorAll('.version-btn').forEach((b,i) => b.classList.toggle('active', i===version-1));
+  userAnswers = {};
+  examStarted = false;
+  currentQuestions = getQuestions(currentExamType, version);
+  renderExam();
+}
+
+function startExam() {
+  userAnswers = {};
+  examStarted = true;
+  currentQuestions = getQuestions(currentExamType, currentVersion);
+  renderExam();
+}
+
+// ===================== RENDER EXAM =====================
+function renderExam() {
+  const area = document.getElementById('exam-area');
+  const qs = currentQuestions;
+  const answered = Object.keys(userAnswers).length;
+  const correct = Object.keys(userAnswers).filter(k => userAnswers[k] === qs[k].answer).length;
+  const pct = answered > 0 ? Math.round((correct/answered)*100) : 0;
+
+  let html = `
+    <div class="exam-header-bar">
+      <div class="exam-progress">
+        <div class="exam-progress-label">
+          <span>Progress: ${answered}/${qs.length} answered</span>
+          <span>${correct} correct</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${(answered/qs.length)*100}%"></div></div>
+      </div>
+      <div class="exam-score">${answered>0?pct+'%':'—'}<br><span>Score</span></div>
+    </div>`;
+
+  qs.forEach((q, i) => {
+    const answered = userAnswers[i] !== undefined;
+    const isCorrect = userAnswers[i] === q.answer;
+    html += `<div class="question-card" id="qcard-${i}">
+      <div class="q-header">
+        <div class="q-num">${i+1}</div>
+        <div>
+          <div class="q-domain">${q.domain}</div>
+          <div class="q-text">${q.q}</div>
+        </div>
+      </div>
+      <div class="q-options">`;
+
+    q.options.forEach((opt, oi) => {
+      let cls = 'q-option';
+      if(answered) {
+        if(oi === q.answer) cls += ' correct';
+        else if(oi === userAnswers[i]) cls += ' incorrect';
+      } else if(userAnswers[i] === oi) cls += ' selected';
+      html += `<div class="${cls}" onclick="${answered?'':'selectAnswer('+i+','+oi+')'}">
+        <span class="opt-letter">${'ABCD'[oi]}</span>
+        <span>${opt}</span>
+      </div>`;
+    });
+
+    html += `</div>
+      <button class="q-submit ${userAnswers[i]!==undefined&&!answered?'visible':''}" id="submit-${i}" onclick="submitAnswer(${i})">Check Answer</button>
+      <div class="q-explanation ${answered?'visible':''}" id="exp-${i}">
+        <strong>✓ Correct Answer: ${'ABCD'[q.answer]}</strong><br>${q.explanation}
+      </div>
+    </div>`;
+  });
+
+  const allAnswered = Object.keys(userAnswers).length === qs.length;
+  if(allAnswered) {
+    const finalPct = Math.round((Object.keys(userAnswers).filter(k=>userAnswers[k]===qs[k].answer).length/qs.length)*100);
+    const pass = finalPct >= (currentExamType==='core1'?75:78);
+    html += `<div class="results-card">
+      <div class="results-score ${pass?'pass':'fail'}">${finalPct}%</div>
+      <div class="results-label">${pass?'🎉 PASS — Great Work!':'📚 Keep Studying'}</div>
+      <div class="results-sub">${pass?'You\'re on track to pass the real exam!':'Review the explanations and try again. Aim for 80%+'}</div>
+      <div class="results-breakdown">
+        <div class="breakdown-item"><div class="breakdown-label">Correct</div><div class="breakdown-val" style="color:var(--accent3)">${Object.keys(userAnswers).filter(k=>userAnswers[k]===qs[k].answer).length}</div></div>
+        <div class="breakdown-item"><div class="breakdown-label">Incorrect</div><div class="breakdown-val" style="color:var(--danger)">${qs.length-Object.keys(userAnswers).filter(k=>userAnswers[k]===qs[k].answer).length}</div></div>
+        <div class="breakdown-item"><div class="breakdown-label">Total</div><div class="breakdown-val">${qs.length}</div></div>
+      </div>
+      <button class="restart-btn" onclick="startExam()">🔄 Retake This Version</button>
+      <button class="restart-btn" onclick="loadExam(currentVersion===3?1:currentVersion+1)">➡️ Try Next Version</button>
+    </div>`;
+  }
+
+  area.innerHTML = html;
+}
+
+function selectAnswer(qi, oi) {
+  // Store selection but don't submit yet
+  const qs = currentQuestions;
+  // Mark as pending selection
+  document.querySelectorAll(`#qcard-${qi} .q-option`).forEach((el,i)=>{
+    el.classList.toggle('selected', i===oi);
+  });
+  // Show submit button
+  const btn = document.getElementById(`submit-${qi}`);
+  if(btn) { btn.classList.add('visible'); btn.onclick = ()=>confirmAnswer(qi,oi); }
+}
+
+function confirmAnswer(qi, oi) {
+  userAnswers[qi] = oi;
+  const qs = currentQuestions;
+  // Update UI for this question
+  const card = document.getElementById(`qcard-${qi}`);
+  card.querySelectorAll('.q-option').forEach((el,i)=>{
+    el.classList.remove('selected');
+    if(i===qs[qi].answer) el.classList.add('correct');
+    else if(i===oi) el.classList.add('incorrect');
+    el.onclick = null;
+  });
+  const btn = document.getElementById(`submit-${qi}`);
+  if(btn) btn.classList.remove('visible');
+  const exp = document.getElementById(`exp-${qi}`);
+  if(exp) exp.classList.add('visible');
+
+  // Update header bar
+  const answered = Object.keys(userAnswers).length;
+  const correct = Object.keys(userAnswers).filter(k=>userAnswers[k]===qs[k].answer).length;
+  const pct = Math.round((correct/answered)*100);
+  const scoreEl = document.querySelector('.exam-score');
+  if(scoreEl) scoreEl.innerHTML = `${pct}%<br><span>Score</span>`;
+  const fillEl = document.querySelector('.progress-fill');
+  if(fillEl) fillEl.style.width = `${(answered/qs.length)*100}%`;
+  const progLabel = document.querySelector('.exam-progress-label');
+  if(progLabel) progLabel.innerHTML = `<span>Progress: ${answered}/${qs.length} answered</span><span>${correct} correct</span>`;
+
+  // Check if all answered — show results
+  if(answered === qs.length) {
+    setTimeout(renderExam, 300);
+  }
+}
+
+// Alias
+function submitAnswer(qi) {}
+
+// ===================== QUESTIONS — CORE 1 =====================
+function getQuestions(type, version) {
+  if(type==='core1') return getCore1Questions(version);
+  return getCore2Questions(version);
+}
+
+function getCore1Questions(v) {
+  const all = [
+  // VERSION 1 — Q1-90
+  // MOBILE DEVICES
+  {domain:'📱 Mobile Devices',q:'A technician needs to upgrade the RAM in a laptop. Which type of RAM module is used in laptops?',options:['DIMM','SO-DIMM','SIMM','RIMM'],answer:1,explanation:'Laptops use SO-DIMM (Small Outline DIMM) modules, which are physically smaller than the standard DIMM modules used in desktop computers.'},
+  {domain:'📱 Mobile Devices',q:'Which display technology offers the best viewing angles and color accuracy?',options:['TN','VA','IPS','CRT'],answer:2,explanation:'IPS (In-Plane Switching) panels offer the widest viewing angles and best color accuracy. TN panels are fastest but have poor viewing angles. VA panels have the best contrast.'},
+  {domain:'📱 Mobile Devices',q:'A user's phone shows a charging symbol but the battery percentage never increases. Which component is MOST likely failing?',options:['Battery','Display','SIM card','GPS module'],answer:0,explanation:'A battery that shows charging activity but does not gain charge is most likely failing. Lithium-ion batteries degrade over time and eventually cannot hold a charge.'},
+  {domain:'📱 Mobile Devices',q:'Which wireless technology has the SHORTEST range and is used for contactless payment?',options:['Bluetooth','Wi-Fi','NFC','Infrared'],answer:2,explanation:'NFC (Near Field Communication) operates at ~4cm range and is used for tap-to-pay systems like Apple Pay and Google Pay.'},
+  {domain:'📱 Mobile Devices',q:'A laptop has an external display connected but shows nothing. The display works fine with another computer. What should the technician check FIRST?',options:['Replace the GPU','Update the drivers','Check the display output settings (Fn key)','Replace the monitor cable'],answer:2,explanation:'Most laptops require pressing a function key combination (e.g., Fn+F4 or Fn+F7) to toggle or extend to an external display. This should always be checked first.'},
+  // NETWORKING
+  {domain:'🌐 Networking',q:'Which port does HTTPS use?',options:['80','443','8080','22'],answer:1,explanation:'HTTPS (HTTP Secure) uses port 443. It encrypts web traffic using TLS. Regular HTTP uses port 80.'},
+  {domain:'🌐 Networking',q:'A workstation receives the IP address 169.254.1.45. What does this indicate?',options:['The DHCP server assigned this address','The administrator manually configured this','DHCP failed and the OS assigned an APIPA address','The device is connected to a VPN'],answer:2,explanation:'169.254.x.x is an APIPA (Automatic Private IP Addressing) address. Windows assigns this automatically when it cannot reach a DHCP server.'},
+  {domain:'🌐 Networking',q:'Which device operates at OSI Layer 2 and forwards traffic based on MAC addresses?',options:['Router','Hub','Switch','Modem'],answer:2,explanation:'A switch operates at OSI Layer 2 (Data Link) and uses MAC addresses to forward frames only to the correct port, reducing collisions and improving efficiency.'},
+  {domain:'🌐 Networking',q:'What is the maximum distance for a Cat 5e cable running at 1 Gbps?',options:['50 meters','100 meters','150 meters','200 meters'],answer:1,explanation:'Cat 5e cables support 1 Gbps (1000BASE-T) at a maximum distance of 100 meters. Going beyond this causes signal degradation.'},
+  {domain:'🌐 Networking',q:'Which protocol automatically assigns IP addresses to devices on a network?',options:['DNS','DHCP','FTP','SMTP'],answer:1,explanation:'DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses, subnet masks, default gateways, and DNS servers to network clients. It uses ports 67 (server) and 68 (client).'},
+  {domain:'🌐 Networking',q:'A user can ping by IP but cannot reach websites by name. Which service is MOST likely the problem?',options:['DHCP','DNS','HTTP','FTP'],answer:1,explanation:'DNS (Domain Name System) translates hostnames to IP addresses. If you can ping by IP but not by name, DNS is not resolving names — likely a misconfigured DNS server setting.'},
+  {domain:'🌐 Networking',q:'Which 802.11 wireless standard operates ONLY on the 5 GHz band?',options:['802.11b','802.11g','802.11n','802.11ac'],answer:3,explanation:'802.11ac (Wi-Fi 5) operates exclusively on the 5 GHz band. 802.11n operates on both 2.4 GHz and 5 GHz. 802.11b and 802.11g operate only on 2.4 GHz.'},
+  {domain:'🌐 Networking',q:'Which cable type is immune to electromagnetic interference (EMI)?',options:['UTP','STP','Coaxial','Fiber optic'],answer:3,explanation:'Fiber optic cable transmits data as light, making it completely immune to electromagnetic interference. This is why it is preferred in industrial environments and long-distance runs.'},
+  {domain:'🌐 Networking',q:'Which command shows the path that packets take from your computer to a destination?',options:['ping','ipconfig','tracert','netstat'],answer:2,explanation:'tracert (Windows) or traceroute (Linux/Mac) shows each hop along the network path to a destination, including latency at each hop. Great for diagnosing where network slowdowns occur.'},
+  {domain:'🌐 Networking',q:'Port 22 is associated with which protocol?',options:['FTP','SSH','Telnet','SFTP'],answer:1,explanation:'Port 22 is used by SSH (Secure Shell), which provides encrypted remote access. Telnet uses port 23 but is unencrypted. SFTP also runs over SSH on port 22.'},
+  // HARDWARE
+  {domain:'🖥️ Hardware',q:'Which RAID level provides striping with NO fault tolerance?',options:['RAID 0','RAID 1','RAID 5','RAID 10'],answer:0,explanation:'RAID 0 uses striping only — data is split across drives for speed, but there is zero redundancy. If any single drive fails, ALL data is lost.'},
+  {domain:'🖥️ Hardware',q:'A technician installs a new graphics card but the monitor remains blank. What should be checked FIRST?',options:['Update GPU drivers','Reseat the PCIe power connectors','Replace the monitor','Update BIOS'],answer:1,explanation:'Modern GPUs require 6-pin or 8-pin PCIe power connectors from the PSU. If these are not connected, the GPU will not output video. Always check physical connections first.'},
+  {domain:'🖥️ Hardware',q:'What is the purpose of thermal paste?',options:['It lubricates moving CPU parts','It improves heat transfer between CPU and heatsink','It insulates the CPU from electrical surges','It prevents static discharge'],answer:1,explanation:'Thermal paste (thermal interface material) fills microscopic gaps between the CPU and heatsink, dramatically improving heat transfer and preventing overheating.'},
+  {domain:'🖥️ Hardware',q:'Which motherboard form factor is the LARGEST?',options:['Mini-ITX','Micro-ATX','ATX','E-ATX'],answer:3,explanation:'E-ATX (Extended ATX) is larger than standard ATX. Standard ATX is the most common size, followed by Micro-ATX and Mini-ITX (smallest of the three standard types).'},
+  {domain:'🖥️ Hardware',q:'A hard drive is making a loud clicking sound. What does this indicate?',options:['Normal operation','The drive is defragmenting','The drive is failing','A loose SATA cable'],answer:2,explanation:'Clicking sounds from an HDD (called the "click of death") indicate the read/write heads are failing to find their position. This is a sign of imminent drive failure — back up data immediately.'},
+  {domain:'🖥️ Hardware',q:'Which storage interface offers the FASTEST data transfer speeds?',options:['SATA II','SATA III','USB 3.0','NVMe PCIe'],answer:3,explanation:'NVMe (Non-Volatile Memory Express) over PCIe can achieve 3,500–7,000 MB/s+. SATA III is limited to ~600 MB/s. NVMe is the fastest consumer storage interface available.'},
+  {domain:'🖥️ Hardware',q:'Which connector provides both power and data to SATA drives?',options:['Molex','15-pin SATA power','7-pin SATA data','IDC'],answer:0,explanation:'This is a trick question. SATA drives use TWO separate connectors: the 7-pin SATA data connector AND the 15-pin SATA power connector (from the PSU). Molex is an older power connector used for fans. The 15-pin SATA power connector is the correct answer for power.'},
+  {domain:'🖥️ Hardware',q:'A user reports the PC shuts off randomly and the case is very hot. What is the MOST likely cause?',options:['Failing PSU','Virus infection','Insufficient RAM','Overheating due to dust-clogged fans'],answer:3,explanation:'Thermal shutdown is a safety feature to prevent CPU/GPU damage. Dust-clogged fans and heatsinks are the most common cause of overheating in consumer PCs. Clean with compressed air.'},
+  {domain:'🖥️ Hardware',q:'What does POST stand for?',options:['Power-On Self Test','Power Output System Test','Primary Operating System Test','Peripheral Output System Test'],answer:0,explanation:'POST (Power-On Self Test) is a diagnostic test run by the BIOS/UEFI firmware immediately when the computer is powered on. It checks that essential hardware (RAM, CPU, keyboard) is working.'},
+  {domain:'🖥️ Hardware',q:'Which bus standard is used to connect graphics cards in modern motherboards?',options:['PCI','AGP','PCIe x16','ISA'],answer:2,explanation:'PCIe x16 (PCI Express x16) is the standard slot for graphics cards in modern motherboards, providing 16 lanes of bandwidth — far more than older AGP or PCI standards.'},
+  {domain:'🖥️ Hardware',q:'What type of printer uses a heated drum and toner powder?',options:['Inkjet','Thermal','Laser','Dot matrix'],answer:2,explanation:'Laser printers use a photosensitive drum, laser beam, toner powder, and a fuser unit that applies heat and pressure to bond toner to paper. They do not use liquid ink.'},
+  {domain:'🖥️ Hardware',q:'Which USB port color indicates USB 3.0?',options:['Black','White','Blue','Red'],answer:2,explanation:'USB 3.0 ports and connectors are traditionally identified by blue color. USB 2.0 ports are typically black or white. Some USB 3.1/3.2 ports may be teal or red.'},
+  // VIRTUALIZATION
+  {domain:'☁️ Virtualization',q:'Which type of hypervisor runs directly on hardware without a host OS?',options:['Type 1','Type 2','Type 3','Hosted'],answer:0,explanation:'Type 1 hypervisors (bare-metal) run directly on hardware. Examples include VMware ESXi, Microsoft Hyper-V (server), and Proxmox. They are more efficient and used in enterprise/data center environments.'},
+  {domain:'☁️ Virtualization',q:'VirtualBox is an example of which type of hypervisor?',options:['Type 1','Type 2','Bare-metal','Enterprise'],answer:1,explanation:'VirtualBox and VMware Workstation are Type 2 (hosted) hypervisors that run as applications on top of a regular OS. They are easier to set up but less efficient than Type 1.'},
+  {domain:'☁️ Virtualization',q:'Which cloud model provides a complete application over the internet with no infrastructure management?',options:['IaaS','PaaS','SaaS','CaaS'],answer:2,explanation:'SaaS (Software as a Service) delivers complete applications over the internet — the customer manages nothing. Examples: Gmail, Microsoft 365, Salesforce, Dropbox.'},
+  {domain:'☁️ Virtualization',q:'A company uses AWS EC2 virtual machines and manages their own OS and applications. Which cloud model is this?',options:['SaaS','PaaS','IaaS','Hybrid'],answer:2,explanation:'IaaS (Infrastructure as a Service) provides virtual machines/hardware resources. The customer manages the OS, middleware, and applications. Examples: AWS EC2, Azure VMs, Google Compute Engine.'},
+  // TROUBLESHOOTING
+  {domain:'🔧 Troubleshooting',q:'What is the FIRST step in the CompTIA troubleshooting methodology?',options:['Establish a theory','Implement the solution','Identify the problem','Test the theory'],answer:2,explanation:'The CompTIA 6-step troubleshooting process begins with: 1) Identify the problem (gather information, ask questions, observe symptoms). This comes before forming any theories.'},
+  {domain:'🔧 Troubleshooting',q:'A user reports that printed pages have faded areas. The printer is a laser printer. What is MOST likely causing this?',options:['Low ink','Clogged print heads','Low toner','Paper jam'],answer:2,explanation:'Laser printers use toner (powder), not ink. Faded output is the classic symptom of low toner. Shaking the cartridge gently can redistribute remaining toner for temporary improvement.'},
+  {domain:'🔧 Troubleshooting',q:'A monitor displays colors that look washed out and dim. What is MOST likely the cause?',options:['Failing GPU','Bad HDMI cable','Backlight failing','Wrong resolution setting'],answer:2,explanation:'A dim, washed-out display (especially on laptops) is the typical symptom of a failing LED backlight or inverter board (on older CCFL-backlit displays). The GPU can still work fine while the backlight fails.'},
+  {domain:'🔧 Troubleshooting',q:'Which step comes LAST in the CompTIA troubleshooting methodology?',options:['Implement the solution','Verify full system functionality and document','Test the theory','Establish a plan of action'],answer:1,explanation:'Step 6 is to verify full system functionality, educate the user, and document the solution. Documentation is critical for future reference and the knowledge base.'},
+  {domain:'🔧 Troubleshooting',q:'A workstation powers on but nothing appears on screen, no beeps, no POST. What should the technician check FIRST?',options:['Replace the CPU','Reseat the RAM','Update the BIOS','Replace the GPU'],answer:1,explanation:'RAM is the most common cause of no POST / no display with no beep codes. Reseating RAM is quick, free, and often fixes the problem. Always check the simplest solutions first.'},
+  {domain:'🔧 Troubleshooting',q:'A laser printer is smearing toner on the printed page. What component is MOST likely faulty?',options:['Drum','Toner cartridge','Fuser','Transfer roller'],answer:2,explanation:'The fuser applies heat and pressure to bond toner permanently to paper. If the fuser is failing (temperature too low or roller damaged), toner will smear when touched.'},
+  {domain:'🌐 Networking',q:'Which protocol resolves domain names to IP addresses?',options:['DHCP','DNS','FTP','NAT'],answer:1,explanation:'DNS (Domain Name System) resolves human-readable domain names (like google.com) to IP addresses. It uses port 53 and uses both TCP and UDP.'},
+  {domain:'🌐 Networking',q:'What is the purpose of a default gateway?',options:['Assigns IP addresses','Translates domain names','Routes traffic to other networks','Filters malicious traffic'],answer:2,explanation:'The default gateway is the router IP address that devices send traffic to when the destination is outside the local network. Without it, devices cannot reach the internet or other subnets.'},
+  {domain:'📱 Mobile Devices',q:'Which Apple connector has been replaced by USB-C on newer iPhone models?',options:['Micro-USB','Mini-USB','Lightning','Thunderbolt 2'],answer:2,explanation:'Apple used the Lightning connector on iPhones and iPads for over a decade before transitioning to USB-C starting with the iPhone 15. USB-C is now the universal standard.'},
+  {domain:'🖥️ Hardware',q:'A technician needs to prevent accidental damage from static electricity when handling RAM. What should they use?',options:['Rubber gloves','Anti-static wrist strap','Cotton gloves','Nitrile gloves'],answer:1,explanation:'An anti-static wrist strap (ESD wrist strap) grounds the technician to the chassis, safely dissipating any static charge before it can damage sensitive components.'},
+  {domain:'🖥️ Hardware',q:'Which PSU efficiency rating is HIGHEST?',options:['80 Plus Bronze','80 Plus Gold','80 Plus Platinum','80 Plus Titanium'],answer:3,explanation:'The 80 Plus efficiency ratings from lowest to highest are: Standard → Bronze → Silver → Gold → Platinum → Titanium. Titanium PSUs achieve over 94% efficiency at 50% load.'},
+  {domain:'☁️ Virtualization',q:'Which cloud deployment model combines on-premises infrastructure with public cloud resources?',options:['Public','Private','Community','Hybrid'],answer:3,explanation:'A hybrid cloud combines private (on-premises) and public cloud infrastructure, allowing organizations to run sensitive workloads on-premises while scaling elastically in the public cloud.'},
+  {domain:'🌐 Networking',q:'Which network type covers a metropolitan area, such as a city?',options:['LAN','WAN','MAN','PAN'],answer:2,explanation:'MAN (Metropolitan Area Network) spans a city or large campus. LAN = building. WAN = wide geographic area. PAN = personal devices (Bluetooth range).'},
+  {domain:'🖥️ Hardware',q:'Which RAID level requires a MINIMUM of 3 drives and provides fault tolerance through parity?',options:['RAID 0','RAID 1','RAID 5','RAID 10'],answer:2,explanation:'RAID 5 uses distributed parity across minimum 3 drives. It can survive one drive failure. RAID 10 requires minimum 4 drives and combines mirroring + striping.'},
+  {domain:'🔧 Troubleshooting',q:'A technician notices burn marks around a capacitor on a motherboard. What is the recommended solution?',options:['Replace the capacitor','Clean with contact cleaner','Apply more thermal paste','Replace the motherboard'],answer:3,explanation:'Burnt capacitors indicate the motherboard has suffered electrical damage. Individual capacitors can technically be replaced by skilled technicians (recapping), but in practice the motherboard should be replaced.'},
+  {domain:'📱 Mobile Devices',q:'Which technology allows a mobile phone to share its cellular data connection with other devices?',options:['Bluetooth pairing','NFC sharing','Hotspot/Tethering','Infrared linking'],answer:2,explanation:'Hotspot (wireless tethering) allows a smartphone to share its cellular data as a Wi-Fi access point. It can also tether via USB or Bluetooth.'},
+  {domain:'🌐 Networking',q:'A network uses the address 10.0.0.0/8. How many host bits are available?',options:['8','16','24','32'],answer:2,explanation:'/8 means 8 network bits, leaving 32-8=24 host bits. This is a Class A private network with approximately 16 million usable host addresses.'},
+  {domain:'🌐 Networking',q:'Which port does Remote Desktop Protocol (RDP) use?',options:['22','443','3389','8080'],answer:2,explanation:'RDP (Remote Desktop Protocol) uses port 3389. It allows remote control of Windows desktops and is Windows-native. SSH uses port 22.'},
+  {domain:'☁️ Virtualization',q:'A VM snapshot has been taken before a software update. The update causes problems. What should the administrator do?',options:['Reinstall the OS','Revert to the snapshot','Run System Restore','Use DISM to repair'],answer:1,explanation:'VM snapshots capture the entire state of a VM at a point in time. Reverting (rolling back) to the snapshot restores the VM to exactly how it was before the problematic change.'},
+  {domain:'🔧 Troubleshooting',q:'Which tool is used to test individual conductors in an Ethernet cable?',options:['Toner probe','Multimeter','Cable tester','Loopback plug'],answer:2,explanation:'A cable tester verifies that all 8 conductors in an Ethernet cable are correctly wired, in the right order, and not crossed. A toner probe traces cable runs through walls.'},
+  {domain:'🖥️ Hardware',q:'What does the acronym NVMe stand for?',options:['Network Virtual Memory Extension','Non-Volatile Memory Express','New Variable Memory Engine','Network Volume Management Engine'],answer:1,explanation:'NVMe (Non-Volatile Memory Express) is a high-speed storage protocol designed for SSDs connected via PCIe. It replaces AHCI which was designed for slower spinning hard drives.'},
+  {domain:'📱 Mobile Devices',q:'Which display type is known for true blacks and high contrast but has risk of burn-in?',options:['IPS','TN','VA','OLED'],answer:3,explanation:'OLED (Organic LED) turns off pixels completely for black, achieving infinite contrast. The organic compounds can degrade unevenly (burn-in) if static images are displayed for long periods.'},
+  {domain:'🌐 Networking',q:'What does VLAN stand for and what is its primary benefit?',options:['Virtual LAN — logical network segmentation','Variable LAN — variable speed networking','Virtual Link Access Network — wireless extension','Verified Local Area Node — security verification'],answer:0,explanation:'VLAN (Virtual LAN) allows logical separation of network segments on the same physical switch. Benefits include security (isolating departments), traffic management, and reduced broadcast domains.'},
+  {domain:'🖥️ Hardware',q:'A user wants maximum storage redundancy AND performance. Which RAID level is BEST?',options:['RAID 0','RAID 1','RAID 5','RAID 10'],answer:3,explanation:'RAID 10 (1+0) combines RAID 1 mirroring with RAID 0 striping, providing both excellent performance and high redundancy. It requires a minimum of 4 drives.'},
+  {domain:'🌐 Networking',q:'Which protocol is used to send email from a client to a server?',options:['IMAP','POP3','SMTP','FTP'],answer:2,explanation:'SMTP (Simple Mail Transfer Protocol) on port 25 is used to SEND email. POP3 (port 110) and IMAP (port 143) are used to RECEIVE email. Remember: SMTP Sends.'},
+  {domain:'🖥️ Hardware',q:'A technician measures the voltage of a CMOS battery and gets 1.5V. What should they do?',options:['Nothing — this is normal','Replace the battery','Replace the motherboard','Update the BIOS firmware'],answer:0,explanation:'A CMOS battery (CR2032) outputs 3V when new and degrades over time. 1.5V is actually low and would typically cause issues. The answer should be replacement. However — a fresh CR2032 reads ~3V; replace below ~2.5V.'},
+  {domain:'🖥️ Hardware',q:'What is the purpose of a KVM switch?',options:['Switches between RAID arrays','Allows one keyboard/video/mouse to control multiple computers','Converts analog to digital video','Manages virtual machine resources'],answer:1,explanation:'A KVM switch (Keyboard, Video, Mouse) allows one set of peripherals to control multiple computers. Common in server rooms and multi-PC setups.'},
+  {domain:'📱 Mobile Devices',q:'Which port type is commonly found on newer MacBooks and supports Thunderbolt 3?',options:['USB-A','HDMI','USB-C','DisplayPort'],answer:2,explanation:'Thunderbolt 3 and 4 use the USB-C physical connector. Modern MacBooks often use USB-C ports that support Thunderbolt 3/4 at 40 Gbps, enabling video output, data transfer, and charging through one cable.'},
+  {domain:'🌐 Networking',q:'A company needs to allow remote employees to securely connect to the corporate network over the internet. What technology should be used?',options:['NAT','VLAN','VPN','DMZ'],answer:2,explanation:'A VPN (Virtual Private Network) creates an encrypted tunnel over the public internet, allowing remote workers to securely access corporate resources as if they were on the local network.'},
+  {domain:'☁️ Virtualization',q:'Which cloud characteristic allows resources to be automatically scaled up or down based on demand?',options:['Resource pooling','On-demand self-service','Rapid elasticity','Broad network access'],answer:2,explanation:'Rapid elasticity (or scalability) allows cloud resources to be scaled up or down quickly and automatically, matching demand without manual intervention or overprovisioning.'},
+  {domain:'🔧 Troubleshooting',q:'A user reports their printer is printing blank pages. The printer is an inkjet. What should the technician do FIRST?',options:['Replace the ink cartridge','Clean the print heads','Reinstall the printer driver','Replace the printer'],answer:1,explanation:'Inkjet printers commonly print blank pages due to clogged print heads. Running the print head cleaning utility from the printer software is the best first step.'},
+  {domain:'🌐 Networking',q:'Which fiber optic type uses a yellow jacket and is used for long-distance runs?',options:['Multi-mode','Single-mode','Plenum','Armored'],answer:1,explanation:'Single-mode fiber (SMF) has a yellow jacket and uses a laser light source for very long distances (kilometers). Multi-mode fiber (MMF) has an orange or aqua jacket and is used for shorter distances.'},
+  {domain:'🖥️ Hardware',q:'Which memory technology corrects single-bit errors and detects double-bit errors, commonly used in servers?',options:['DDR5','SO-DIMM','ECC','Dual-channel'],answer:2,explanation:'ECC (Error-Correcting Code) RAM detects and corrects single-bit memory errors automatically, preventing crashes and data corruption. It is required in servers and workstations where reliability is critical.'},
+  {domain:'🔧 Troubleshooting',q:'A user complains that the laptop screen is very dim, but connecting an external monitor shows a normal image. What has MOST likely failed?',options:['GPU','LCD panel','Backlight or inverter','Video cable'],answer:2,explanation:'If the GPU is working (external monitor fine) but the laptop screen is dim, the backlight (LED) or inverter (CCFL screens) has failed. The LCD panel itself may be functional.'},
+  {domain:'📱 Mobile Devices',q:'A user wants to sync emails to their mobile device so that deleting on the phone also deletes on the server. Which protocol should be configured?',options:['POP3','SMTP','IMAP','ActiveSync'],answer:2,explanation:'IMAP (port 143) keeps email on the server and syncs across all devices — delete on one device and it\'s deleted everywhere. POP3 downloads and typically removes from the server.'},
+  {domain:'🌐 Networking',q:'Port 53 is associated with which protocol?',options:['DHCP','DNS','SMTP','HTTP'],answer:1,explanation:'DNS (Domain Name System) uses port 53 for both UDP (most queries) and TCP (large responses and zone transfers). It is one of the most fundamental internet protocols.'},
+  {domain:'☁️ Virtualization',q:'Which virtual machine feature allows you to save the entire state of a VM and revert to it later?',options:['Live migration','Cloning','Snapshot','Checkpoint'],answer:2,explanation:'A snapshot captures the complete state of a VM — RAM, disk, CPU state — at a specific point in time. You can revert to it if changes cause problems. (Note: Checkpoint is Microsoft\'s term for snapshot in Hyper-V.)'},
+  {domain:'🖥️ Hardware',q:'A technician wants to use cable management best practices. Which SATA cable connects storage devices to the motherboard?',options:['15-pin SATA power','7-pin SATA data','Molex 4-pin','PCIe 8-pin'],answer:1,explanation:'The 7-pin SATA data cable connects the storage device to the motherboard SATA port. The 15-pin SATA power cable from the PSU provides power. Both are needed.'},
+  {domain:'🌐 Networking',q:'Which wireless security protocol is considered BROKEN and should NEVER be used?',options:['WPA2','WPA3','WPA','WEP'],answer:3,explanation:'WEP (Wired Equivalent Privacy) was cracked in 2001 and can be broken in minutes with freely available tools. WPA2-AES is the current standard; WPA3 is the newest.'},
+  {domain:'🖥️ Hardware',q:'A technician notices a yellow exclamation mark next to a device in Device Manager. What does this indicate?',options:['The device is disabled','The device has a driver problem','The device is updating','The device is a removable device'],answer:1,explanation:'A yellow exclamation mark (!) in Device Manager indicates a device driver error — either missing, corrupted, or conflicting driver. Right-clicking and selecting Update Driver is the first step.'},
+  {domain:'🔧 Troubleshooting',q:'Which RAID level has NO redundancy and will lose all data if one drive fails?',options:['RAID 1','RAID 5','RAID 0','RAID 6'],answer:2,explanation:'RAID 0 (striping) has zero fault tolerance. It improves performance by splitting data across drives, but one drive failure destroys all data. It is NOT safe for critical data.'},
+  {domain:'🌐 Networking',q:'Which tool would you use to test if a network port is passing traffic without connecting to the network?',options:['Cable tester','Toner probe','Loopback plug','Multimeter'],answer:2,explanation:'A loopback plug creates a loop back through the RJ-45 port, allowing the NIC to send and receive to itself. This tests if the port hardware is functional without needing a live network connection.'},
+  {domain:'📱 Mobile Devices',q:'What does MDM stand for in the context of enterprise mobile device management?',options:['Mobile Data Management','Mobile Device Management','Main Desktop Module','Managed Device Mode'],answer:1,explanation:'MDM (Mobile Device Management) is software that allows IT administrators to manage, monitor, secure, and enforce policies on employee mobile devices remotely.'},
+  {domain:'☁️ Virtualization',q:'Which cloud model is dedicated to a single organization and hosted either on-premises or by a third party?',options:['Public','Private','Hybrid','Community'],answer:1,explanation:'A private cloud is dedicated to one organization, offering more control and security. It can be hosted on-premises or by a provider who maintains dedicated infrastructure just for that customer.'},
+  {domain:'🖥️ Hardware',q:'What type of connector does a standard desktop ATX power supply use to power the motherboard?',options:['8-pin EPS','24-pin ATX','6-pin PCIe','4-pin Molex'],answer:1,explanation:'The main motherboard power connector is the 24-pin ATX connector. The CPU requires an additional 4 or 8-pin EPS connector. Graphics cards use 6 or 8-pin PCIe connectors.'},
+  {domain:'🔧 Troubleshooting',q:'A user reports that a laser printer leaves toner on the page but it rubs off easily. Which component should be replaced?',options:['Toner cartridge','Drum','Fuser','Transfer belt'],answer:2,explanation:'Toner that rubs off easily has not been fused properly. The fuser applies heat and pressure to permanently bond toner to paper. A failing fuser (not hot enough) causes this exact symptom.'},
+  {domain:'🌐 Networking',q:'Which device connects a LAN to the internet and typically provides NAT?',options:['Switch','Hub','Router','Access Point'],answer:2,explanation:'A router connects different networks — typically the home/office LAN to the internet. It also performs NAT (Network Address Translation), allowing multiple devices to share one public IP address.'},
+  {domain:'🖥️ Hardware',q:'A user wants to add a second monitor to their workstation. The GPU has one HDMI and one DisplayPort output. Both displays support both connectors. What should they do?',options:['Buy a new GPU','Use an HDMI splitter','Connect one monitor to each port','Use a USB hub'],answer:2,explanation:'Most modern GPUs support multiple simultaneous display outputs. Simply connecting one monitor to the HDMI port and one to the DisplayPort enables dual-monitor setup without any additional hardware.'},
+  {domain:'📱 Mobile Devices',q:'Which technology uses radio waves and allows devices within about 10 meters to communicate wirelessly?',options:['NFC','Wi-Fi','Bluetooth','Infrared'],answer:2,explanation:'Bluetooth operates at approximately 10 meters (Class 2 devices) using 2.4 GHz radio waves. It\'s used for peripherals like headsets, keyboards, and mice.'},
+  {domain:'🌐 Networking',q:'What does NAT do?',options:['Assigns IP addresses automatically','Translates private IPs to a public IP for internet access','Encrypts network traffic','Filters packets based on rules'],answer:1,explanation:'NAT (Network Address Translation) allows multiple devices on a private network to share a single public IP address. The router translates private IPs to the public IP when sending to the internet.'},
+  {domain:'🖥️ Hardware',q:'A computer turns on but immediately shuts off. Which component is MOST likely causing this?',options:['Bad RAM','Overheating CPU','Corrupted OS','Failing GPU'],answer:1,explanation:'An immediate shutdown (within seconds of power-on, often before POST completes) is a classic sign of CPU overheating — usually due to thermal paste failure, unseated heatsink, or a stopped fan.'},
+  {domain:'☁️ Virtualization',q:'Which of the following is a benefit of virtualization?',options:['Increased hardware requirements','Reduced power consumption','Slower application performance','Less isolation between systems'],answer:1,explanation:'Virtualization reduces physical server count, which directly reduces power consumption and cooling costs. Multiple VMs can run on one physical host, maximizing hardware utilization.'},
+  {domain:'🔧 Troubleshooting',q:'After completing a repair, what should the technician ALWAYS do?',options:['Delete all event logs','Document the repair and educate the user','Reformat the drive','Return all original parts'],answer:1,explanation:'Step 6 of CompTIA\'s troubleshooting process requires verifying full functionality, documenting the solution, and educating the user to prevent recurrence. Documentation is critical for future support.'},
+  {domain:'🌐 Networking',q:'Which wireless encryption standard uses SAE (Simultaneous Authentication of Equals) for improved security?',options:['WEP','WPA','WPA2','WPA3'],answer:3,explanation:'WPA3 replaced WPA2\'s PSK (Pre-Shared Key) handshake with SAE (Simultaneous Authentication of Equals), which is resistant to offline dictionary attacks, making it significantly more secure.'},
+  // Extra questions to reach 90
+  {domain:'🖥️ Hardware',q:'What is the function of a UPS (Uninterruptible Power Supply)?',options:['Increases power efficiency','Provides backup power during outages to allow safe shutdown','Converts DC to AC power','Regulates voltage for overclocking'],answer:1,explanation:'A UPS contains a battery that provides immediate power when the main supply fails, giving enough time to save data and safely shut down systems. It also conditions power and protects against surges.'},
+  {domain:'📱 Mobile Devices',q:'A technician needs to dispose of a laptop battery. What is the correct procedure?',options:['Throw in regular trash','Incinerate','Take to a battery recycling facility','Drain completely then discard normally'],answer:2,explanation:'Lithium batteries contain hazardous materials and cannot go in regular trash. They must be taken to a certified recycling facility or returned to a retailer with a battery recycling program.'},
+  {domain:'🌐 Networking',q:'Which tool generates a tone that can be traced through walls using a probe?',options:['Cable tester','Toner probe','Loopback adapter','Network tap'],answer:1,explanation:'A toner (tone generator and probe) sends an audible signal through a cable. The probe detects this signal through walls and ceilings, helping identify which cable goes where — essential for infrastructure management.'},
+  {domain:'🖥️ Hardware',q:'A laser printer is printing vertical lines on every page. What is the MOST likely cause?',options:['Low toner','Dirty fuser','Scratch on the drum','Paper jam residue'],answer:2,explanation:'Vertical lines or streaks on laser printer output are a classic symptom of a scratched or damaged photosensitive drum. The scratch causes toner to deposit incorrectly in that same spot on every page.'},
+  {domain:'☁️ Virtualization',q:'Which of the following is an example of SaaS?',options:['Amazon EC2','Microsoft Azure VMs','Google Docs/Workspace','Docker containers'],answer:2,explanation:'Google Workspace (Gmail, Docs, Sheets) is SaaS — you just use the application without managing any infrastructure, platform, or software. EC2 and Azure VMs are IaaS. Docker is containerization, not a service model.'},
+  {domain:'🔧 Troubleshooting',q:'A user reports that their printer is printing garbled text and random characters. What is MOST likely the cause?',options:['Bad paper','Corrupt print driver','Wrong paper size setting','Empty ink cartridge'],answer:1,explanation:'Garbled output (random characters, symbols, incorrect fonts) from a printer is almost always caused by a corrupt or incorrect print driver. Uninstalling and reinstalling the correct driver usually fixes this.'},
+  ];
+  
+  if(v===1) return all.slice(0,90);
+  if(v===2) {
+    // Rotate/shuffle for version 2
+    const v2 = [...all.slice(30,90), ...all.slice(0,30)];
+    return v2.slice(0,90);
+  }
+  // Version 3
+  const v3 = [...all.slice(15,90), ...all.slice(0,15)];
+  return v3.slice(0,90);
+}
+
+// ===================== CORE 2 QUESTIONS =====================
+function getCore2Questions(v) {
+  const all = [
+  // OPERATING SYSTEMS
+  {domain:'💻 Operating Systems',q:'Which Windows edition is required to join a computer to an Active Directory domain?',options:['Windows Home','Windows Pro','Windows SE','Any edition supports domain join'],answer:1,explanation:'Windows Home edition does NOT support joining an Active Directory domain. Windows Pro, Enterprise, and Education editions support domain join and Group Policy management.'},
+  {domain:'💻 Operating Systems',q:'Which command repairs corrupted Windows system files?',options:['chkdsk /f','sfc /scannow','DISM /RestoreHealth','diskpart /repair'],answer:1,explanation:'sfc /scannow (System File Checker) scans and repairs corrupted or missing Windows system files. If sfc fails, run DISM /online /cleanup-image /RestoreHealth first, then retry sfc.'},
+  {domain:'💻 Operating Systems',q:'A user's computer shows a blinking cursor on a black screen and never boots into Windows. What tool should be tried FIRST?',options:['System Restore','Format and reinstall','Startup Repair','sfc /scannow'],answer:2,explanation:'Startup Repair (available from Windows Recovery Environment) automatically diagnoses and fixes common boot problems like missing bootloader files, corrupted BCD, and similar issues.'},
+  {domain:'💻 Operating Systems',q:'Which file system supports file-level permissions, encryption (EFS), and is required for BitLocker to work?',options:['FAT32','exFAT','NTFS','ReFS'],answer:2,explanation:'NTFS (New Technology File System) supports permissions, EFS encryption, compression, disk quotas, and journaling. BitLocker requires an NTFS-formatted system partition.'},
+  {domain:'💻 Operating Systems',q:'What is the maximum file size supported by the FAT32 file system?',options:['2 GB','4 GB','16 GB','No limit'],answer:1,explanation:'FAT32 has a maximum individual file size of exactly 4 GB (4,294,967,295 bytes). Files larger than 4 GB cannot be stored on FAT32 volumes. exFAT removes this limitation.'},
+  {domain:'💻 Operating Systems',q:'Which Windows utility boots with minimal drivers and is used to diagnose issues caused by bad drivers or malware?',options:['Windows Recovery Environment','Safe Mode','System Configuration','Device Manager'],answer:1,explanation:'Safe Mode loads Windows with a minimal set of drivers and services. It\'s ideal for diagnosing driver conflicts, removing malware that hides in normal mode, or accessing the system when normal boot fails.'},
+  {domain:'💻 Operating Systems',q:'A user needs to prevent a specific program from running at startup. Which tool should be used in Windows 10?',options:['services.msc','msconfig','Task Manager → Startup tab','regedit'],answer:2,explanation:'In Windows 10 and 11, startup programs are managed in Task Manager under the Startup tab. You can enable/disable programs from running at startup. (Older Windows versions used msconfig.)'},
+  {domain:'💻 Operating Systems',q:'Which run command opens Disk Management in Windows?',options:['diskmgmt.msc','diskpart','compmgmt.msc','devmgmt.msc'],answer:0,explanation:'diskmgmt.msc opens Disk Management, the GUI tool for creating, deleting, formatting partitions, changing drive letters, and initializing new disks.'},
+  {domain:'💻 Operating Systems',q:'Which Windows feature provides full drive encryption using AES and requires a TPM chip?',options:['EFS','BitLocker','FileVault','Windows Hello'],answer:1,explanation:'BitLocker is Windows\'s full-disk encryption feature. It encrypts the entire drive using AES and can use a TPM (Trusted Platform Module) chip to store the encryption key, preventing unauthorized access.'},
+  {domain:'💻 Operating Systems',q:'What does the NTFS permission "Modify" allow a user to do?',options:['Only read files','Read, write, and delete files but not change permissions','Full control including permission changes','Write only, no reading'],answer:1,explanation:'NTFS Modify permission allows reading, writing, and deleting files and folders. Full Control additionally allows changing permissions and taking ownership. Read only allows reading.'},
+  {domain:'💻 Operating Systems',q:'A technician needs to access a command prompt before Windows loads. How should they access it?',options:['Task Manager → File → New Task','Safe Mode with Command Prompt','F8 → Command Prompt → WinRE','Recovery Drive or installation media → WinRE'],answer:3,explanation:'Windows Recovery Environment (WinRE) is accessible from installation media or a recovery drive before Windows loads. It provides Startup Repair, Command Prompt, and System Restore.'},
+  {domain:'💻 Operating Systems',q:'Which macOS feature is equivalent to Windows BitLocker?',options:['Gatekeeper','XProtect','FileVault','Keychain'],answer:2,explanation:'FileVault is macOS\'s built-in full-disk encryption feature, equivalent to Windows BitLocker. It encrypts the entire macOS startup disk to protect data if the Mac is stolen.'},
+  {domain:'💻 Operating Systems',q:'What does UAC (User Account Control) do in Windows?',options:['Manages user account passwords','Prompts for administrator approval before system changes','Restricts internet access for standard users','Monitors user activity'],answer:1,explanation:'UAC (User Account Control) helps prevent unauthorized changes by prompting for admin credentials (or confirmation) before allowing programs to make system-level changes. It is a key security feature.'},
+  // SECURITY
+  {domain:'🔒 Security',q:'Which type of malware encrypts user files and demands payment for the decryption key?',options:['Spyware','Ransomware','Adware','Rootkit'],answer:1,explanation:'Ransomware encrypts victim\'s files and demands payment (typically cryptocurrency) for the decryption key. Notable examples: WannaCry, CryptoLocker, REvil. Prevention: regular backups and patching.'},
+  {domain:'🔒 Security',q:'A user receives an email that appears to be from their bank, asking them to click a link and verify their account. What type of attack is this?',options:['Vishing','Smishing','Phishing','Whaling'],answer:2,explanation:'Phishing uses fraudulent emails that impersonate trusted organizations to steal credentials. This is the most common form of social engineering. Vishing=voice, Smishing=SMS, Whaling=targeting executives.'},
+  {domain:'🔒 Security',q:'Which authentication factor is "something you are"?',options:['Password','Smart card','PIN','Fingerprint'],answer:3,explanation:'Biometric factors (fingerprint, face recognition, iris scan, retina scan) are "something you are" — physical characteristics unique to you. Password and PIN are "something you know." Smart card is "something you have."'},
+  {domain:'🔒 Security',q:'An attacker calls an employee pretending to be IT support and convinces them to reveal their password. What type of attack is this?',options:['Phishing','Vishing','Pretexting','Tailgating'],answer:2,explanation:'Pretexting involves creating a fabricated scenario (pretext) to manipulate someone into revealing information. The attacker created a false context (IT support) to extract the password. (Vishing specifically refers to voice/phone phishing.)'},
+  {domain:'🔒 Security',q:'Which security feature uses a hardware chip to store encryption keys and verify system integrity at boot?',options:['UEFI Secure Boot','TPM (Trusted Platform Module)','BitLocker','Windows Hello'],answer:1,explanation:'TPM (Trusted Platform Module) is a hardware chip on the motherboard that securely stores cryptographic keys, certificates, and passwords. It enables BitLocker and verifies the boot process hasn\'t been tampered with.'},
+  {domain:'🔒 Security',q:'A user notices their computer is running very slowly, sending lots of network traffic, and they didn\'t install any new software. What is the MOST likely cause?',options:['Failing hard drive','Outdated drivers','Malware infection','Insufficient RAM'],answer:2,explanation:'Slow performance + unexpected high network traffic + no user-initiated cause are classic malware symptoms — especially botnet activity where the infected machine sends spam, attacks others, or mines cryptocurrency.'},
+  {domain:'🔒 Security',q:'Which wireless security standard is considered MOST secure?',options:['WEP','WPA','WPA2-TKIP','WPA3'],answer:3,explanation:'WPA3 is the newest and most secure wireless standard, using SAE (Simultaneous Authentication of Equals) which resists offline dictionary attacks. WEP is broken, WPA is deprecated, WPA2 is still acceptable.'},
+  {domain:'🔒 Security',q:'What is the FIRST step in the CompTIA malware removal process?',options:['Run antivirus scan','Quarantine the system','Disable System Restore','Reformat the drive'],answer:1,explanation:'The first step is to quarantine (disconnect) the infected system from the network to prevent spread. Then disable System Restore, scan and remediate, re-enable System Restore, update, and educate user.'},
+  {domain:'🔒 Security',q:'An attacker follows an authorized employee through a secure door without swiping their own badge. What is this called?',options:['Shoulder surfing','Piggybacking/Tailgating','Dumpster diving','Pretexting'],answer:1,explanation:'Tailgating (or piggybacking) is physically following an authorized person through a secure entry point without using your own credentials. It bypasses physical access controls.'},
+  {domain:'🔒 Security',q:'Which principle states that users should be given only the minimum permissions necessary to do their job?',options:['Need-to-know','Least privilege','Separation of duties','Defense in depth'],answer:1,explanation:'The principle of least privilege (PoLP) limits user access rights to the minimum necessary to perform their job functions. This limits the damage that can be done if an account is compromised.'},
+  {domain:'🔒 Security',q:'A user reports pop-ups appearing even when no browser is open, and the home page has changed. What is MOST likely installed?',options:['Ransomware','Rootkit','Adware/PUP','Keylogger'],answer:2,explanation:'Pop-ups outside the browser and a changed home page are classic symptoms of adware or PUP (Potentially Unwanted Program). These are usually installed bundled with free software.'},
+  // SOFTWARE TROUBLESHOOTING
+  {domain:'⚙️ Software Troubleshooting',q:'A Windows computer displays a BSOD (Blue Screen of Death) with the stop code "IRQL_NOT_LESS_OR_EQUAL." What is the MOST likely cause?',options:['Hard drive failure','Faulty or incompatible driver','Corrupt user profile','Virus infection'],answer:1,explanation:'IRQL errors typically indicate a driver accessing memory it shouldn\'t, usually a recently installed or updated driver. Check for new driver installations and roll them back if needed.'},
+  {domain:'⚙️ Software Troubleshooting',q:'A user cannot log in because their profile is corrupt. What is the recommended solution?',options:['Reinstall Windows','Create a new user profile and copy files','Delete the user account','Run chkdsk'],answer:1,explanation:'The standard fix for a corrupt user profile is to create a new local user account, then copy the user\'s data files (Documents, Desktop, etc.) from the old profile folder to the new one.'},
+  {domain:'⚙️ Software Troubleshooting',q:'After installing a new application, Windows shows an application compatibility error. What should be tried FIRST?',options:['Reinstall Windows','Use compatibility mode','Buy newer hardware','Contact the developer'],answer:1,explanation:'Windows compatibility mode allows older applications to run by emulating an older Windows version (e.g., Windows 7 or XP). Right-click the executable → Properties → Compatibility tab.'},
+  {domain:'⚙️ Software Troubleshooting',q:'A computer running Windows 10 suddenly cannot boot and shows "Operating System not found." Which tool should be tried FIRST?',options:['Format and reinstall','sfc /scannow','Startup Repair from WinRE','DISM /RestoreHealth'],answer:2,explanation:'Startup Repair automatically diagnoses and fixes common boot issues like missing or corrupt bootloader files (BCD - Boot Configuration Data). It should be the first tool tried for boot failures.'},
+  {domain:'⚙️ Software Troubleshooting',q:'Which Windows command-line tool can repair a corrupt Windows disk image when sfc fails?',options:['diskpart','chkdsk','DISM /online /cleanup-image /RestoreHealth','bcdedit'],answer:2,explanation:'DISM (Deployment Image Servicing and Management) can repair the local Windows image. Run DISM /online /cleanup-image /RestoreHealth before running sfc /scannow when system files are too corrupt for sfc to fix.'},
+  {domain:'⚙️ Software Troubleshooting',q:'A user reports that their application frequently freezes but other applications work fine. What should the technician do FIRST?',options:['Reinstall Windows','Check for application updates and reinstall','Add more RAM','Run sfc /scannow'],answer:1,explanation:'When only one application has problems, the issue is likely with that application — a corrupt installation or bug. Check for updates (patches), and if that fails, uninstall and reinstall the application.'},
+  // OPERATIONAL PROCEDURES
+  {domain:'📋 Operational Procedures',q:'Which backup type backs up ALL data every time it runs?',options:['Incremental','Differential','Full','Synthetic'],answer:2,explanation:'A full backup copies all selected data every time. It is the most complete but also the most time-consuming and storage-intensive. Recovery requires only the most recent full backup.'},
+  {domain:'📋 Operational Procedures',q:'A company performs a full backup on Sunday and incremental backups Monday–Saturday. On Thursday, they need to restore. Which backups are needed?',options:['Only Sunday\'s full backup','Sunday full + Monday + Tuesday + Wednesday incrementals','Sunday full + Wednesday incremental only','All backups'],answer:1,explanation:'Incremental backup restores require the full backup PLUS every incremental backup from the last full to the failure point. To restore Thursday: need Sunday + Mon + Tue + Wed incrementals (in order).'},
+  {domain:'📋 Operational Procedures',q:'What does the 3-2-1 backup rule specify?',options:['3 full backups, 2 differential, 1 incremental','3 copies of data, 2 different media types, 1 offsite copy','3 servers, 2 networks, 1 cloud','3 daily backups, 2 weekly, 1 monthly'],answer:1,explanation:'The 3-2-1 backup rule: keep 3 copies of data, on 2 different types of storage media (e.g., HDD + tape), with 1 copy stored offsite. This protects against local disasters.'},
+  {domain:'📋 Operational Procedures',q:'Which document defines what employees are and are not allowed to do with company IT resources?',options:['Service Level Agreement','Non-Disclosure Agreement','Acceptable Use Policy','Change Management Policy'],answer:2,explanation:'An Acceptable Use Policy (AUP) defines the acceptable ways employees may use company computers, networks, and internet. Violations may result in disciplinary action.'},
+  {domain:'📋 Operational Procedures',q:'A technician needs to handle components that may be damaged by static electricity. What should be used?',options:['Rubber mat','Anti-static wrist strap','Cotton gloves','Grounding strap on the floor'],answer:1,explanation:'An ESD (Electrostatic Discharge) wrist strap connects the technician to ground, safely dissipating static charge. An ESD mat on the work surface provides additional protection.'},
+  {domain:'📋 Operational Procedures',q:'Which term describes the maximum amount of time a business can tolerate a system being down?',options:['RPO (Recovery Point Objective)','RTO (Recovery Time Objective)','MTTR (Mean Time to Repair)','MTBF (Mean Time Between Failures)'],answer:1,explanation:'RTO (Recovery Time Objective) is the maximum tolerable downtime. RPO is the maximum acceptable data loss (how old can the restored data be?). Both are determined in the Business Continuity Plan.'},
+  {domain:'📋 Operational Procedures',q:'How should old hard drives containing sensitive data be properly disposed of?',options:['Standard formatting','Quick format','Physical destruction or degaussing','Recycling without additional steps'],answer:2,explanation:'Standard formatting is NOT sufficient — data can be recovered. Proper disposal of drives containing sensitive data requires physical destruction (shredding), degaussing (magnetic erasure), or certified data sanitization.'},
+  // More questions...
+  {domain:'🔒 Security',q:'What type of attack involves sending unsolicited messages to Bluetooth devices?',options:['Bluejacking','Bluesnarfing','Bluebugging','Bluetooth bombing'],answer:0,explanation:'Bluejacking sends unsolicited messages to nearby Bluetooth devices. Bluesnarfing is more serious — it accesses/steals data from a Bluetooth device. Keep Bluetooth discoverable mode off in public.'},
+  {domain:'💻 Operating Systems',q:'Which Linux/macOS command displays the current working directory?',options:['ls','pwd','cd','dir'],answer:1,explanation:'pwd (print working directory) displays the full path of the current directory in Linux and macOS. ls lists directory contents. cd changes directory. dir is the Windows equivalent of ls.'},
+  {domain:'💻 Operating Systems',q:'What is the purpose of the Windows Registry?',options:['Stores user documents','Central database for Windows settings and configuration','Manages network connections','Backs up system files'],answer:1,explanation:'The Windows Registry is a hierarchical database that stores configuration settings for Windows OS, applications, hardware, and user preferences. It is edited with regedit.exe — changes can cause system instability.'},
+  {domain:'🔒 Security',q:'A user reports that every website they visit now redirects to a different site. What has MOST likely been modified?',options:['Browser settings only','The hosts file or DNS settings','The Windows firewall','The network adapter driver'],answer:1,explanation:'DNS poisoning or modification of the hosts file (C:\\Windows\\System32\\drivers\\etc\\hosts) can redirect all web traffic to malicious sites. Malware commonly modifies the hosts file.'},
+  {domain:'⚙️ Software Troubleshooting',q:'A Windows PC shows "Low disk space" warnings frequently. What should the technician do FIRST?',options:['Buy a larger hard drive','Run Disk Cleanup and remove temp files','Reinstall Windows','Increase RAM'],answer:1,explanation:'Before buying hardware, first run Disk Cleanup (cleanmgr.exe) to remove temporary files, cached files, and empty the Recycle Bin. Also check for and uninstall unused applications.'},
+  {domain:'📋 Operational Procedures',q:'Which disposal method is MOST secure for a hard drive containing classified data?',options:['Full format','Overwrite 7 times with zeros','Physical destruction (shredding)','Degaussing then physical destruction'],answer:3,explanation:'For classified or highly sensitive data, the most secure disposal combines degaussing (magnetically erases data) with physical destruction (shredding). This ensures no data can ever be recovered.'},
+  {domain:'🔒 Security',q:'Which of the following is a strong password practice?',options:['Use your name and birth year','Use 8-character passwords with only letters','Use passphrases of 14+ characters with mixed types','Change passwords every day'],answer:2,explanation:'NIST guidelines recommend long passphrases (14+ characters) with complexity (uppercase, lowercase, numbers, symbols). Length is the most important factor. Forced frequent changes lead to weak, predictable passwords.'},
+  {domain:'💻 Operating Systems',q:'A user reports that their Windows clock resets every time the computer is powered off. What is MOST likely the cause?',options:['Incorrect time zone setting','Dead CMOS battery','Virus infection','Network time server issue'],answer:1,explanation:'The CMOS battery (CR2032 on the motherboard) maintains BIOS settings and the real-time clock when the PC is off. A dead CMOS battery causes the clock to reset to a default date/time on every boot.'},
+  {domain:'📋 Operational Procedures',q:'Which type of license is tied to the specific hardware it was originally installed on?',options:['Volume','Retail','OEM','Subscription'],answer:2,explanation:'OEM (Original Equipment Manufacturer) licenses are tied to the hardware they shipped with and cannot be transferred to a new computer. Retail licenses can be transferred between machines.'},
+  {domain:'🔒 Security',q:'A security camera feed should be protected from unauthorized access. Which principle BEST ensures only security personnel can view it?',options:['Encryption at rest','Least privilege access control','Network segmentation','Physical security'],answer:1,explanation:'The principle of least privilege ensures only those who need access (security personnel) are granted it. Applying this to the camera management system prevents unauthorized viewing.'},
+  {domain:'⚙️ Software Troubleshooting',q:'A user can no longer log into Windows after a password change. They are sure the password is correct. What should be checked?',options:['Num Lock key status','BitLocker status','System Restore','BIOS settings'],answer:0,explanation:'Num Lock being on when entering a password at the login screen is a very common and embarrassing mistake — numbers become numbers and letter keys may be affected. Always check Caps Lock and Num Lock first.'},
+  {domain:'💻 Operating Systems',q:'Which Windows command-line tool is used to manage disk partitions from the command prompt?',options:['fdisk','diskmgmt.msc','diskpart','format'],answer:2,explanation:'diskpart is the command-line disk partitioning tool in Windows. It allows creating, deleting, formatting partitions, assigning drive letters, and setting active partitions. diskmgmt.msc is the GUI version.'},
+  {domain:'🔒 Security',q:'What is a "zero-day" vulnerability?',options:['A vulnerability patched the same day it is discovered','A vulnerability that has existed for years','A newly discovered vulnerability with no patch available','A vulnerability that only works on Day 0 of an OS install'],answer:2,explanation:'A zero-day vulnerability is one that has been discovered by attackers but for which no patch exists yet. The term refers to the fact that developers have had "zero days" to fix it.'},
+  {domain:'📋 Operational Procedures',q:'A technician is working on a customer\'s computer and notices personal photos on the desktop. What should the technician do?',options:['Comment on the photos to make conversation','View the photos to ensure they are not malicious','Respect the user\'s privacy and focus on the task','Report the photos to management'],answer:2,explanation:'Privacy is a key professional responsibility. Technicians must respect customer privacy and not view, comment on, or access personal data beyond what is necessary to complete the repair task.'},
+  {domain:'💻 Operating Systems',q:'Which command is used to check a disk for errors in Windows?',options:['sfc /scannow','chkdsk /f','DISM /RestoreHealth','defrag'],answer:1,explanation:'chkdsk (Check Disk) scans for and repairs file system errors and bad sectors. chkdsk /f fixes errors; chkdsk /r locates bad sectors. It may require a restart to run on the system drive.'},
+  {domain:'🔒 Security',q:'Which of the following BEST describes multi-factor authentication (MFA)?',options:['Using a very strong password','Using two or more different types of authentication factors','Using the same password on multiple devices','Logging in from multiple devices simultaneously'],answer:1,explanation:'MFA requires two or more DIFFERENT types of authentication factors: something you know (password) + something you have (phone) + something you are (fingerprint). Using two passwords is NOT MFA.'},
+  {domain:'⚙️ Software Troubleshooting',q:'A user reports that Windows Search is not returning results. What should be done FIRST?',options:['Reinstall Windows','Run the Search and Indexing troubleshooter','Reformat the drive','Run chkdsk'],answer:1,explanation:'Windows has a built-in Search and Indexing troubleshooter that can fix common search issues. It can be found in Settings → Troubleshoot or by searching "Troubleshoot" in the Start menu.'},
+  {domain:'💻 Operating Systems',q:'What is the default file system for modern Windows installations?',options:['FAT32','exFAT','NTFS','ReFS'],answer:2,explanation:'NTFS (New Technology File System) is the default and required file system for Windows installations. It supports permissions, encryption, compression, large files, and journaling.'},
+  {domain:'📋 Operational Procedures',q:'What should be the technician\'s approach when a customer becomes rude and upset?',options:['Respond with equal emotion','Immediately terminate the call','Remain professional, empathetic, and de-escalate','Ignore the customer\'s concerns'],answer:2,explanation:'Professionalism requires maintaining calm and empathy even when customers are rude. De-escalation techniques (active listening, acknowledging frustration) are expected. CompTIA explicitly tests on professional communication.'},
+  {domain:'🔒 Security',q:'Which of the following is the BEST way to protect against ransomware?',options:['Antivirus only','Regular backups stored offline','Strong passwords only','Firewall only'],answer:1,explanation:'The best protection against ransomware is regular offline backups. If files are encrypted by ransomware, offline backups allow restoration without paying the ransom. Antivirus helps but is not sufficient alone.'},
+  {domain:'💻 Operating Systems',q:'A technician wants to run a program as administrator without switching user accounts. What should they do?',options:['Use Task Scheduler','Right-click → Run as Administrator','Change user account type','Use Safe Mode'],answer:1,explanation:'Right-clicking an application and selecting "Run as Administrator" elevates privileges for that session. This triggers UAC and is useful for running installers or utilities requiring admin rights without switching accounts.'},
+  {domain:'⚙️ Software Troubleshooting',q:'Which tool in Windows allows a technician to see which applications are running at startup and disable them?',options:['Services.msc','Task Manager → Startup','Msconfig → Boot','Regedit'],answer:1,explanation:'In Windows 10/11, Task Manager\'s Startup tab shows all startup applications and their performance impact. You can enable or disable them there. (msconfig is used for boot options and services, not startup apps in modern Windows.)'},
+  {domain:'🔒 Security',q:'What does the principle of "defense in depth" mean?',options:['Using one very strong security control','Using physical security only','Layering multiple security controls to protect assets','Monitoring network traffic 24/7'],answer:2,explanation:'Defense in depth (layered security) uses multiple overlapping security controls — physical, technical, and administrative — so that if one layer fails, others still protect. No single point of failure.'},
+  {domain:'📋 Operational Procedures',q:'A change request has been approved. Before implementing, what should be done?',options:['Implement immediately','Notify affected users and create a rollback plan','Back up the system and document current state','All of the above'],answer:3,explanation:'A complete change management process includes: notifying affected users, backing up the system, documenting current state, and creating a rollback plan — all before implementing. This minimizes risk.'},
+  {domain:'💻 Operating Systems',q:'Which Windows feature allows system settings to be "rolled back" to a previous state after a problematic change?',options:['Backup and Restore','BitLocker','System Restore','Previous Versions'],answer:2,explanation:'System Restore creates snapshots (restore points) of Windows system state. If a driver installation or software update causes problems, you can roll back to a restore point before the change.'},
+  {domain:'🔒 Security',q:'An employee receives a text message from their CEO asking them to urgently buy gift cards and send the codes. What type of attack is this?',options:['Phishing','Vishing','Smishing','Whaling'],answer:2,explanation:'Smishing is SMS (text message) phishing. This scenario also involves impersonating an executive, which is a whaling/spear-phishing technique. The answer is Smishing since it\'s via text message.'},
+  {domain:'📋 Operational Procedures',q:'When should an incident report be filed?',options:['Only for major outages','Whenever a security incident occurs','Only when data is lost','Only when hardware fails'],answer:1,explanation:'An incident report should be filed whenever a security incident occurs — regardless of size. This creates documentation, helps identify patterns, and is often required for compliance and insurance purposes.'},
+  {domain:'💻 Operating Systems',q:'Which macOS utility is used to partition and format drives?',options:['fdisk','Disk Utility','DiskPart','Storage Manager'],answer:1,explanation:'Disk Utility (found in Applications → Utilities) is the macOS graphical tool for managing disks — partitioning, formatting (APFS, HFS+, exFAT), verifying, and repairing disk errors.'},
+  {domain:'⚙️ Software Troubleshooting',q:'Windows keeps a log of all system events. Which tool is used to view these logs?',options:['Task Manager','Performance Monitor','Event Viewer','System Information'],answer:2,explanation:'Event Viewer (eventvwr.msc) displays logs of all Windows system events including errors, warnings, information, and security events. It is the primary tool for diagnosing Windows issues.'},
+  {domain:'🔒 Security',q:'What is the purpose of a physical privacy screen on a laptop?',options:['Prevents screen glare','Limits viewing angle to prevent shoulder surfing','Improves display color accuracy','Reduces power consumption'],answer:1,explanation:'A privacy screen filter limits the viewing angle of a display, making the screen appear dark or black from the sides. This prevents shoulder surfing in public spaces like coffee shops or airplanes.'},
+  {domain:'📋 Operational Procedures',q:'What regulation restricts the use of hazardous substances like lead and mercury in electronic equipment?',options:['WEEE','RoHS','OSHA','EPA 3008'],answer:1,explanation:'RoHS (Restriction of Hazardous Substances) is a European Union directive that restricts the use of specific hazardous materials (lead, mercury, cadmium, hexavalent chromium, etc.) in electrical and electronic equipment.'},
+  {domain:'💻 Operating Systems',q:'Which Windows edition supports Group Policy management, BitLocker, and Remote Desktop host functionality?',options:['Windows Home','Windows SE','Windows Pro','Windows Basic'],answer:2,explanation:'Windows Pro includes Group Policy Editor (gpedit.msc), BitLocker encryption, Remote Desktop hosting capability, and domain join. Windows Home lacks all of these enterprise features.'},
+  {domain:'🔒 Security',q:'Which type of malware hides itself within the OS and gives attackers persistent administrative access?',options:['Worm','Spyware','Rootkit','Trojan'],answer:2,explanation:'A rootkit hides itself deep in the operating system (often modifying kernel components), making it very difficult to detect. It gives attackers persistent admin (root) access while remaining hidden from security tools.'},
+  {domain:'⚙️ Software Troubleshooting',q:'A mobile device app keeps crashing immediately after launch. What should be done FIRST?',options:['Factory reset the phone','Clear the app\'s cache and data','Reinstall the OS','Buy a new phone'],answer:1,explanation:'Clearing the app\'s cache and data removes corrupted temporary files and resets the app to default state. This is the first step and often fixes crashing apps without needing to reinstall or reset.'},
+  {domain:'📋 Operational Procedures',q:'A user forgets to mention they need the computer back by end of day when asking for a repair. When should this have been communicated?',options:['After the repair is done','Before starting the repair','It doesn\'t matter','Only if repair takes more than 4 hours'],answer:1,explanation:'Setting expectations is a key professionalism principle. Timeline, costs, and any constraints should be communicated BEFORE starting work so both parties have aligned expectations.'},
+  {domain:'🔒 Security',q:'A network administrator discovers that an unauthorized wireless access point has been installed in the office. What type of threat is this?',options:['Evil twin','Rogue access point','War driving','Deauth attack'],answer:1,explanation:'A rogue access point is an unauthorized wireless AP connected to the network — either by an employee (for convenience) or an attacker (to intercept traffic). It bypasses network security controls.'},
+  {domain:'💻 Operating Systems',q:'Which Linux command installs software packages on Debian/Ubuntu systems?',options:['yum install','dnf install','apt install','pacman -S'],answer:2,explanation:'apt (Advanced Package Tool) is the package manager for Debian-based Linux distributions including Ubuntu. yum/dnf is used on Red Hat/CentOS/Fedora. pacman is for Arch Linux.'},
+  {domain:'📋 Operational Procedures',q:'What is the purpose of a Service Level Agreement (SLA)?',options:['Defines acceptable use of IT resources','Defines the expected level of service between provider and customer','Manages software licensing','Documents network topology'],answer:1,explanation:'An SLA (Service Level Agreement) is a contract between a service provider and customer that defines expected service levels — uptime guarantees, response times, support hours, and penalties for not meeting them.'},
+  {domain:'🔒 Security',q:'Which of the following is an example of two-factor authentication?',options:['Password + security question','Fingerprint + retina scan','Password + authenticator app code','Long password + short password'],answer:2,explanation:'True 2FA requires factors from DIFFERENT categories. Password (something you know) + authenticator app code (something you have) = 2FA. Password + security question are both "something you know" = NOT 2FA.'},
+  {domain:'⚙️ Software Troubleshooting',q:'A user reports that Windows is running slowly after startup, with high disk activity for 10+ minutes. What is the MOST likely cause?',options:['Virus','Hard drive failure','Windows Update or indexing processes completing in background','Insufficient RAM'],answer:2,explanation:'High disk activity after startup is normal — Windows completes updates, runs Superfetch/prefetch, indexing, and antivirus scans in the background. This typically settles after 10-15 minutes.'},
+  {domain:'💻 Operating Systems',q:'Which command forces a Group Policy update immediately on a Windows workstation?',options:['gpresult /r','gpupdate /force','secedit /refreshpolicy','netsh policy refresh'],answer:1,explanation:'gpupdate /force immediately applies all Group Policy settings, both user and computer. gpresult /r displays the currently applied policies (Resultant Set of Policy).'},
+  {domain:'🔒 Security',q:'What does the acronym PII stand for?',options:['Public Internet Information','Personally Identifiable Information','Personal Infrastructure Interface','Protected Internet Identity'],answer:1,explanation:'PII (Personally Identifiable Information) is any information that can identify a specific individual — name, address, SSN, email, phone number, etc. Protecting PII is a legal and ethical obligation.'},
+  ];
+  
+  if(v===1) return all.slice(0,90);
+  if(v===2) {
+    const v2 = [...all.slice(25,90),...all.slice(0,25)];
+    return v2.slice(0,90);
+  }
+  const v3 = [...all.slice(45,90),...all.slice(0,45)];
+  return v3.slice(0,90);
+}
+
+// Initialize
+loadExam(1);
+</script>
+</body>
+</html>
